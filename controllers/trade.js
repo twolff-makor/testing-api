@@ -60,125 +60,74 @@ function generateOtcParams() {
         let providerPrice = getRandomNumber(productsIndex.lowPrice,productsIndex.highPrice, productsIndex.decimals)
         let companyPrice = side === 'BUY' ? providerPrice * (1 + 5/ 10000) : providerPrice * (1 - 5/ 10000)
         let date = getIsoDate();
-        return counterparty, product, side, qty, providerPrice, date, company, companyPrice;
+        let params = [counterparty, product, side, qty, providerPrice, date, company, companyPrice]
+        return params;
     }
 
 
 
 async function createOtcTrade(TOKEN, counterparty, product, side, qty, providerPrice, date, company, companyPrice) {
-    TOKEN = TOKEN.slice(1, -1);
-    ws = new WebSocket(`wss://uat.ws-api.enigma-x.io/?token=${TOKEN}`);
-   const dataToSend = JSON.stringify(
-        {"group": "otc",
-        "type": "report_trade_otc",
-        "data": {
-            "providers_trades": [
-                {
-                    "counterparty": `${counterparty}`,
-                    "user": "3331a59b-a2c4-11ed-a122-0a45617894ef",
-                    "product": `${product}`,
-                    "side": `${side}`,
-                    "status": "VALIDATED",
-                    "quantity":`${qty}`,
-                    "type": "MANUAL FILL",
-                    "price": `${providerPrice}`,
-                    "comment": "",
-                    "executed_at": `${date}`
+    try {
+        TOKEN = TOKEN.slice(1, -1);
+        ws = new WebSocket(`wss://uat.ws-api.enigma-x.io/?token=${TOKEN}`);
+            const dataToSend = JSON.stringify(
+                {"group": "otc",
+                "type": "report_trade_otc",
+                "data": {
+                    "providers_trades": [
+                        {
+                            "counterparty": `${counterparty}`,
+                            "user": "3331a59b-a2c4-11ed-a122-0a45617894ef",
+                            "product": `${product}`,
+                            "side": `${side}`,
+                            "status": "VALIDATED",
+                            "quantity":`${qty}`,
+                            "type": "MANUAL FILL",
+                            "price": `${providerPrice}`,
+                            "comment": "",
+                            "executed_at": `${date}`
+                        }
+                    ],
+                    "trade_company": {
+                        "counterparty": `${company}`,
+                        "product": `${product}`,
+                        "side": `${side}`,
+                        "status": "VALIDATED",
+                        "quantity": `${qty}`,
+                        "type": "MANUAL FILL",
+                        "price": `${companyPrice}`,
+                        "comment": "",
+                        "executed_at": `${date}`
+                    },
+                    "otc_type": "PAIRED"
                 }
-            ],
-            "trade_company": {
-                "counterparty": `${company}`,
-                "product": `${product}`,
-                "side": `${side}`,
-                "status": "VALIDATED",
-                "quantity": `${qty}`,
-                "type": "MANUAL FILL",
-                "price": `${companyPrice}`,
-                "comment": "",
-                "executed_at": `${date}`
-            },
-            "otc_type": "PAIRED"
-        }
-    })
-
-    ws.on('open', () => {
-        console.log('WebSocket connection established');
-        ws.send(dataToSend);
-        });
-
-    const response = await ws.on('message', (data) => {
-        const message = JSON.parse(data.toString('utf8'));
-        if (message.content) {
-            // const  = message.content
-        } else {}
-      });
+            })
+            console.log(dataToSend);
+   
+        ws.on('open', () => {
+            console.log('WebSocket connection established');
+            ws.send(dataToSend);
+            });
     
-        ws.on('close', () => {
-            console.log('WebSocket connection closed');
-        });
-        
-        return response;
+        const response = await ws.on('message', (data) => {
+            const message = JSON.parse(data.toString('utf8'));
+            if (message.content) {
+                console.log(message.content)
+            } else {}
+          });
+
+          ws.on('close', () => {
+              console.log('WebSocket connection closed');
+          });
+          
+          return response;
+
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+   
+    
 }
-
-
-
-
-
-// async function createOtcTrade(TOKEN) {
-//     TOKEN = TOKEN.slice(1, -1);
-//     ws = new WebSocket(`wss://uat.ws-api.enigma-x.io/?token=${TOKEN}`);
-//    const dataToSend = JSON.stringify(
-//         {"group": "otc",
-//         "type": "report_trade_otc",
-//         "data": {
-//             "providers_trades": [
-//                 {
-//                     "counterparty": "04ea951e-3457-11ed-9f51-9c7bef452f5f",
-//                     "user": "3331a59b-a2c4-11ed-a122-0a45617894ef",
-//                     "product": "LTC-EUR",
-//                     "side": "BUY",
-//                     "status": "VALIDATED",
-//                     "quantity":1,
-//                     "type": "MANUAL FILL",
-//                     "price": 86,
-//                     "comment": "",
-//                     "executed_at": "2023-05-31T14:39:47Z"
-//                 }
-//             ],
-//             "trade_company": {
-//                 "counterparty": "62b08b48-aaa7-11ed-a122-0a45617894ef",
-//                 "product": "LTC-EUR",
-//                 "side": "BUY",
-//                 "status": "VALIDATED",
-//                 "quantity": 1,
-//                 "type": "MANUAL FILL",
-//                 "price": 87,
-//                 "comment": "",
-//                 "executed_at": "2023-05-31T14:39:47Z"
-//             },
-//             "otc_type": "PAIRED"
-//         }
-//     })
-
-//     ws.on('open', () => {
-//         console.log('WebSocket connection established');
-//         ws.send(dataToSend);
-//         });
-
-//     const response = await ws.on('message', (data) => {
-//         const message = JSON.parse(data.toString('utf8'));
-//         if (message.content) {
-//             // const  = message.content
-//         } else {}
-//       });
-    
-//         ws.on('close', () => {
-//             console.log('WebSocket connection closed');
-//         });
-        
-//         return response;
-// }
-
 
 module.exports = {
     createOtcTrade,

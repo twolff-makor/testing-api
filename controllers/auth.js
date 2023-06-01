@@ -32,8 +32,8 @@ const PASSWORD = process.env.PASSWORD;
 
 async function getToken() {
     const response = await axios.put("https://uat.rest-api.enigma-x.io/auth", {
-        "username": "twolff",
-        "password": "12345678!@Aa"
+        "username": USERNAME,
+        "password": PASSWORD
                             })
                             .catch(error => {
                                 console.error(error);

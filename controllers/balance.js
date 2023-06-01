@@ -33,7 +33,7 @@ async function getBalance(TOKEN) {
           const message = JSON.parse(data.toString('utf8'));
           if (message) {
             const balance = message.content.balance
-            console.log(balance);
+            // console.log(balance);
             resolve(balance);
             // ws.close();
           } else {

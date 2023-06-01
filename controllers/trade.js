@@ -37,13 +37,6 @@ function getRandomNumber(min, max, decimals) {
     return roundedNumber; // parseFloat?
 }
 
-function addFee(num, isPlus, number) {
-    const basisPoints = amount / 10000;
-    const adjustment = isPlus ? number * basisPoints : -number * basisPoints;
-    const result = number + adjustment;
-    return result;
-  }
-
 function getIsoDate() {
     const now = new Date();
     const formattedDateTime = now.toISOString();
@@ -67,7 +60,7 @@ function generateOtcParams() {
 
 
 async function createOtcTrade(TOKEN, counterparty, product, side, qty, providerPrice, date, company, companyPrice) {
-    try {
+    // try {
         TOKEN = TOKEN.slice(1, -1);
         ws = new WebSocket(`wss://uat.ws-api.enigma-x.io/?token=${TOKEN}`);
             const dataToSend = JSON.stringify(
@@ -105,26 +98,33 @@ async function createOtcTrade(TOKEN, counterparty, product, side, qty, providerP
             console.log(dataToSend);
    
         ws.on('open', () => {
-            console.log('WebSocket connection established');
-            ws.send(dataToSend);
+            console.log('WebSocket connection established - trade');
+            setTimeout(() => {
+                ws.send(dataToSend);
+              }, 1000)
             });
     
-        const response = await ws.on('message', (data) => {
-            const message = JSON.parse(data.toString('utf8'));
-            if (message.content) {
-                console.log(message.content)
-            } else {}
-          });
+            const promise = new Promise((resolve, reject) => {
+                ws.on('message', (data) => {
+                const message = JSON.parse(data.toString('utf8'));
+                if (message.content.message == 'create Trade OTC finish successfully' ) {
+                    resolve(message.content);
+                } else {console.log(message.content.message)}
+              });
+            });
 
           ws.on('close', () => {
               console.log('WebSocket connection closed');
           });
           
-          return response;
+          promise.then((result) => {
+            console.log(result); 
+          });
+         
 
-      } catch (error) {
-        console.error('An error occurred:', error);
-      }
+    //   } catch (error) {
+    //     console.error('An error occurred:', error);
+    //   }
    
     
 }

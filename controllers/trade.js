@@ -59,11 +59,15 @@ function generateOtcParams() {
 
 
 
-async function createOtcTrade(TOKEN, counterparty, product, side, qty, providerPrice, date, company, companyPrice) {
-    // try {
+async function createOtcTrade(numOfTrades, TOKEN, counterparty, product, side, qty, providerPrice, date, company, companyPrice) {
         TOKEN = TOKEN.slice(1, -1);
-        ws = new WebSocket(`wss://uat.ws-api.enigma-x.io/?token=${TOKEN}`);
-            const dataToSend = JSON.stringify(
+
+        let ws;
+        if (!ws) {
+            ws = new WebSocket(`wss://uat.ws-api.enigma-x.io/?token=${TOKEN}`);
+        }
+       
+          const dataToSend = JSON.stringify(
                 {"group": "otc",
                 "type": "report_trade_otc",
                 "data": {
@@ -95,13 +99,13 @@ async function createOtcTrade(TOKEN, counterparty, product, side, qty, providerP
                     "otc_type": "PAIRED"
                 }
             })
-            console.log(dataToSend);
+            // console.log(dataToSend);
    
         ws.on('open', () => {
             console.log('WebSocket connection established - trade');
-            setTimeout(() => {
-                ws.send(dataToSend);
-              }, 1000)
+                setTimeout(() => {
+                    ws.send(dataToSend);
+                  }, 0);
             });
     
             const promise = new Promise((resolve, reject) => {
@@ -120,11 +124,6 @@ async function createOtcTrade(TOKEN, counterparty, product, side, qty, providerP
           promise.then((result) => {
             console.log(result); 
           });
-         
-
-    //   } catch (error) {
-    //     console.error('An error occurred:', error);
-    //   }
    
     
 }

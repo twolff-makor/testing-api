@@ -1,8 +1,8 @@
 require('dotenv').config();
 const axios = require('axios');
 const URL = process.env.URL;
-const USERNAME = process.env.USERNAME;
-const PASSWORD = process.env.PASSWORD;
+const USERNAME = process.env.UAT_USERNAME;
+const PASSWORD = process.env.UAT_PASSWORD;
 
 // let token 
 // function getToken() {
@@ -32,15 +32,14 @@ const PASSWORD = process.env.PASSWORD;
 
 async function getToken() {
     const response = await axios.put("https://uat.rest-api.enigma-x.io/auth", {
-        "username": USERNAME,
-        "password": PASSWORD
+                                    "username": "twolff",
+                                    "password": "12345678!@Aa"
                             })
                             .catch(error => {
                                 console.error(error);
-                            });;
-    
+                            });
     const token = JSON.stringify(response.data.token);
     return token;
 }
 
-module.exports = { getToken};
+module.exports = {getToken};

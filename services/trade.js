@@ -1,5 +1,4 @@
 require('dotenv').config();
-const axios = require('axios');
 const WebSocket = require('ws');
 const WS_URL = process.env.WS_URL
 
@@ -11,7 +10,7 @@ const products = [{name: 'USDT-USD', lowPrice: 26000, highPrice: 29000, lowQty: 
                 {name: 'USDC-USD', lowPrice: 26000, highPrice: 29000, lowQty: 1, highQty: 1000, decimals: 2},
                 {name: 'BTC-USDC', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 20, decimals: 2},
                 {name: 'BTC-EUR', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 20, decimals: 2},
-                {name: 'TUSD-USDT', lowPrice: 26000, highPrice: 29000, lowQty:1, highQty: 1000, decimals: 2},
+                // {name: 'TUSD-USDT', lowPrice: 26000, highPrice: 29000, lowQty:1, highQty: 1000, decimals: 2},
                 {name: 'ETH-USD', lowPrice: 26000, highPrice: 29000, lowQty: 0.001, highQty: 100, decimals: 2},
                 {name: 'BTC-GBP', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 20, decimals: 2},
                 {name: 'USDT-GBP', lowPrice: 26000, highPrice: 29000, lowQty: 1, highQty: 1000, decimals: 2},
@@ -59,12 +58,12 @@ function generateOtcParams() {
 
 
 
-async function createOtcTrade(numOfTrades, TOKEN, counterparty, product, side, qty, providerPrice, date, company, companyPrice) {
+async function createOtcTrade(TOKEN, counterparty, product, side, qty, providerPrice, date, company, companyPrice) {
         TOKEN = TOKEN.slice(1, -1);
 
         let ws;
         if (!ws) {
-            ws = new WebSocket(`wss://uat.ws-api.enigma-x.io/?token=${TOKEN}`);
+            ws = new WebSocket(`${WS_URL}/?token=${TOKEN}`);
         }
        
           const dataToSend = JSON.stringify(
@@ -103,16 +102,14 @@ async function createOtcTrade(numOfTrades, TOKEN, counterparty, product, side, q
    
         ws.on('open', () => {
             console.log('WebSocket connection established - trade');
-                setTimeout(() => {
-                    ws.send(dataToSend);
-                  }, 0);
+            ws.send(dataToSend);
             });
     
             const promise = new Promise((resolve, reject) => {
                 ws.on('message', (data) => {
                 const message = JSON.parse(data.toString('utf8'));
                 if (message.content.message == 'create Trade OTC finish successfully' ) {
-                    resolve(message.content);
+                    resolve(message.content.message);
                 } else {console.log(message.content.message)}
               });
             });

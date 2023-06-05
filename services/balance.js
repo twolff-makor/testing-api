@@ -1,24 +1,28 @@
 require('dotenv').config();
-const axios = require('axios');
 const WebSocket = require('ws');
-const URL = process.env.URL;
+const WS_URL = process.env.WS_URL;
 
 
-async function getBalance(TOKEN) {
-    return new Promise((resolve, reject) => {
-      TOKEN = TOKEN.slice(1, -1);
-      const ws = new WebSocket(`wss://uat.ws-api.enigma-x.io/?token=${TOKEN}`);
+async function getCompanyBalance(TOKEN) {
+  return new Promise((resolve, reject) => {
+    TOKEN = TOKEN.slice(1, -1);
+    
+    let ws;
+      if (!ws) {
+          ws = new WebSocket(`${WS_URL}/?token=${TOKEN}`);
+      }
     
       const dataToSend = JSON.stringify({
-        "id": "038e5af7-3fc8-491b-984e-7ce532757054",
+        "id": "88d594c9-5bd6-489e-9ee9-d70c6c0fb73b",
         "type": "balance",
         "data": {
-          "show_empty": false,
-          "order_by": "amount",
-          "sort": "DESC",
-          "date": ""
+            "show_empty": true,
+            "order_by": "amount",
+            "sort": "DESC",
+            "date": "",
+            "company": "62b08b48-aaa7-11ed-a122-0a45617894ef"
         }
-      });
+    });
     
       ws.on('open', () => {
         try {
@@ -31,9 +35,9 @@ async function getBalance(TOKEN) {
       ws.on('message', (data) => {
         try {   
           const message = JSON.parse(data.toString('utf8'));
+          // console.log(message);
           if (message) {
             const balance = message.content.balance
-            // console.log(balance);
             resolve(balance);
             // ws.close();
           } else {
@@ -57,7 +61,7 @@ async function getBalance(TOKEN) {
 
 
 module.exports = {
-    getBalance
+    getCompanyBalance
   };
 
 

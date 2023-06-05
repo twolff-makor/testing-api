@@ -1,4 +1,5 @@
 require('dotenv').config();
+const winston = require('winston');
 const { getCompanyBalance } = require('../services/balance'); 
 const { createOtcTrade , generateOtcParams} = require('../services/trade');
 

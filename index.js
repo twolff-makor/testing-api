@@ -1,4 +1,5 @@
 require('dotenv').config();
+const winston = require('winston');
 const { getToken } = require('./services/auth');
 const { createSettlement} = require('./services/settlement');
 const { tradeFlow , pause } = require('./controllers/tradeFlows');

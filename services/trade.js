@@ -1,7 +1,10 @@
 require('dotenv').config();
-const WebSocket = require('ws');
+const {sendWebSocketMessage, setMessageHandler} = require('./websocket');
+// const { createdTrade } = require('../controllers/tradeFlows')
 const winston = require('winston');
 const WS_URL = process.env.WS_URL
+
+// let createdTrade = false;
 
 const counterparties = ['04ea951e-3457-11ed-9f51-9c7bef452f5f',]
 const products = [{name: 'USDT-USD', lowPrice: 26000, highPrice: 29000, lowQty: 1, highQty: 1000, decimals: 2},
@@ -11,7 +14,6 @@ const products = [{name: 'USDT-USD', lowPrice: 26000, highPrice: 29000, lowQty: 
                 {name: 'USDC-USD', lowPrice: 26000, highPrice: 29000, lowQty: 1, highQty: 1000, decimals: 2},
                 {name: 'BTC-USDC', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 20, decimals: 2},
                 {name: 'BTC-EUR', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 20, decimals: 2},
-                // {name: 'TUSD-USDT', lowPrice: 26000, highPrice: 29000, lowQty:1, highQty: 1000, decimals: 2},
                 {name: 'ETH-USD', lowPrice: 26000, highPrice: 29000, lowQty: 0.001, highQty: 100, decimals: 2},
                 {name: 'BTC-GBP', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 20, decimals: 2},
                 {name: 'USDT-GBP', lowPrice: 26000, highPrice: 29000, lowQty: 1, highQty: 1000, decimals: 2},
@@ -57,69 +59,49 @@ function generateOtcParams() {
         return params;
     }
 
-
     
-    async function createOtcTrade(TOKEN, counterparty, product, side, qty, providerPrice, date, company, companyPrice) {
-        TOKEN = TOKEN.slice(1, -1);
-        let ws;
-
-        if (!ws) {
-            ws = new WebSocket(`${WS_URL}/?token=${TOKEN}`);
-        }
-       
-          const dataToSend = JSON.stringify(
-                {"group": "otc",
-                "type": "report_trade_otc",
-                "data": {
-                    "providers_trades": [
-                        {
-                            "counterparty": `${counterparty}`,
-                            "user": "3331a59b-a2c4-11ed-a122-0a45617894ef",
-                            "product": `${product}`,
-                            "side": `${side}`,
-                            "status": "VALIDATED",
-                            "quantity":`${qty}`,
-                            "type": "MANUAL FILL",
-                            "price": `${providerPrice}`,
-                            "comment": "",
-                            "executed_at": `${date}`
-                        }
-                    ],
-                    "trade_company": {
-                        "counterparty": `${company}`,
-                        "product": `${product}`,
-                        "side": `${side}`,
-                        "status": "VALIDATED",
-                        "quantity": `${qty}`,
-                        "type": "MANUAL FILL",
-                        "price": `${companyPrice}`,
-                        "comment": "",
-                        "executed_at": `${date}`
-                    },
-                    "otc_type": "PAIRED"
+async function createOtcTrade(counterparty, product, side, qty, providerPrice, date, company, companyPrice, createdAllTrades) {
+    const dataToSend = JSON.stringify(
+        {"group": "otc",
+            "type": "report_trade_otc",
+            "data": {
+                "providers_trades": [
+                    {
+                    "counterparty": `${counterparty}`,
+                    "user": "3331a59b-a2c4-11ed-a122-0a45617894ef",
+                    "product": `${product}`,
+                    "side": `${side}`,
+                    "status": "VALIDATED",
+                    "quantity":`${qty}`,
+                    "type": "MANUAL FILL",
+                    "price": `${providerPrice}`,
+                    "comment": "",
+                    "executed_at": `${date}`
                 }
-            })
+            ],
+                "trade_company": {
+                "counterparty": `${company}`,
+                "product": `${product}`,
+                "side": `${side}`,
+                "status": "VALIDATED",
+                "quantity": `${qty}`,
+                "type": "MANUAL FILL",
+                "price": `${companyPrice}`,
+                "comment": "",
+                "executed_at": `${date}`
+            },
+            "otc_type": "PAIRED"
+            }
+})
             // console.log(dataToSend);
    
-        if (sentTrade == false) {
-            ws.send(dataToSend);
-        }
-   
-        const promise = new Promise((resolve, reject) => {
-            ws.on('message', (data) => {
-            const message = JSON.parse(data.toString('utf8'));
-            if (message.content.message == 'create Trade OTC finish successfully' ) {
-                resolve(message.content.message);
-            } else {console.log(message.content.message)}
-            });
-        });
-
-       
-        promise.then((result) => {
-         console.log(result); 
-        });
-   
-    
+            // if (createdAllTrades == false) {
+                return new Promise((resolve, reject) => {
+                    setMessageHandler(console.log);
+                    sendWebSocketMessage(dataToSend);
+                    // createdTrade = true;
+              });
+            // }
 }
 
 

@@ -8,7 +8,7 @@ const PASSWORD = process.env.UAT_PASSWORD;
 function getToken() {
     return new Promise((resolve, reject) => {
       axios
-        .put(`https://uat.rest-api.enigma-x.io/auth`, {
+        .put(`${process.env.REST_URL}/auth`, {
           username: USERNAME,
           password: PASSWORD
         })

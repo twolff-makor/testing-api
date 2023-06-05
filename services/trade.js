@@ -58,11 +58,11 @@ function generateOtcParams() {
     }
 
 
-
-async function createOtcTrade(TOKEN, counterparty, product, side, qty, providerPrice, date, company, companyPrice) {
+    
+    async function createOtcTrade(TOKEN, counterparty, product, side, qty, providerPrice, date, company, companyPrice) {
         TOKEN = TOKEN.slice(1, -1);
-
         let ws;
+
         if (!ws) {
             ws = new WebSocket(`${WS_URL}/?token=${TOKEN}`);
         }
@@ -101,30 +101,28 @@ async function createOtcTrade(TOKEN, counterparty, product, side, qty, providerP
             })
             // console.log(dataToSend);
    
-        ws.on('open', () => {
-            console.log('WebSocket connection established - trade');
+        if (sentTrade == false) {
             ws.send(dataToSend);
+        }
+   
+        const promise = new Promise((resolve, reject) => {
+            ws.on('message', (data) => {
+            const message = JSON.parse(data.toString('utf8'));
+            if (message.content.message == 'create Trade OTC finish successfully' ) {
+                resolve(message.content.message);
+            } else {console.log(message.content.message)}
             });
-    
-            const promise = new Promise((resolve, reject) => {
-                ws.on('message', (data) => {
-                const message = JSON.parse(data.toString('utf8'));
-                if (message.content.message == 'create Trade OTC finish successfully' ) {
-                    resolve(message.content.message);
-                } else {console.log(message.content.message)}
-              });
-            });
+        });
 
-          ws.on('close', () => {
-              console.log('WebSocket connection closed');
-          });
-          
-          promise.then((result) => {
-            console.log(result); 
-          });
+       
+        promise.then((result) => {
+         console.log(result); 
+        });
    
     
 }
+
+
 
 module.exports = {
     createOtcTrade,

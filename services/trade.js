@@ -56,7 +56,7 @@ function generateOtcParams() {
         return params;
     }
 
-
+let sentTrade = false;
     
     async function createOtcTrade(TOKEN, counterparty, product, side, qty, providerPrice, date, company, companyPrice) {
         TOKEN = TOKEN.slice(1, -1);
@@ -102,6 +102,7 @@ function generateOtcParams() {
    
         if (sentTrade == false) {
             ws.send(dataToSend);
+            sentTrade = true;
         }
    
         const promise = new Promise((resolve, reject) => {

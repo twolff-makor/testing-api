@@ -7,6 +7,7 @@ const { tradeFlow , pause } = require('./controllers/tradeFlows');
 const { getCompanyBalance } = require('./services/balance');
 
 let numOfOtc = 10;
+
 (async () => {
             let REST_TOKEN = await getRestToken();
             let WS_TOKEN = await getWsToken();
@@ -14,7 +15,7 @@ let numOfOtc = 10;
 
             if (connection) {
                    let trade = await tradeFlow(numOfOtc);
-                   let settlement = await createSettlement()
+                   let settlement = await createSettlement(numOfOtc)
                    // let coco = await pause();
                    // getCompanyBalance()
                    // createSettlement();

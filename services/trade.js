@@ -7,10 +7,10 @@ const WS_URL = process.env.WS_URL
 const counterparties = ['04ea951e-3457-11ed-9f51-9c7bef452f5f',]
 const products = [{name: 'BTC-USD', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 20, decimals: 2},
                 {name: 'USDC-USD', lowPrice: 26000, highPrice: 29000, lowQty: 1, highQty: 1000, decimals: 2},
-                {name: 'BTC-USDC', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 20, decimals: 2},
-                {name: 'BTC-EUR', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 20, decimals: 2},
+                {name: 'BTC-USDC', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 10, decimals: 2},
+                {name: 'BTC-EUR', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 10, decimals: 2},
                 {name: 'ETH-USD', lowPrice: 26000, highPrice: 29000, lowQty: 0.001, highQty: 100, decimals: 2},
-                {name: 'BTC-GBP', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 20, decimals: 2},
+                {name: 'BTC-GBP', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 10, decimals: 2},
                 {name: 'USDC-EUR', lowPrice: 26000, highPrice: 29000, lowQty: 1, highQty: 1000, decimals: 2},
                 {name: 'ADA-USD', lowPrice: 26000, highPrice: 29000, lowQty: 1, highQty: 2000, decimals: 2},
                 {name: 'BUSD-USD', lowPrice: 26000, highPrice: 29000, lowQty: 1, highQty: 1000, decimals: 2},

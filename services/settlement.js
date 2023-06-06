@@ -5,6 +5,24 @@ const { sendWebSocketMessage, setMessageHandler } = require('./websocket');
 let tradesCollected = false;
 // let createdSettlement = false;
 
+async function handleNumOfTrades(data) {
+  return new Promise((resolve, reject) => {
+    if (tradesCollected == false) {
+      const trades = data.content?.unsettled_trades || '';
+      let tradesNum = 0;
+      for (const trade of trades) {
+      tradesNum += trade.trades;
+        }
+
+    // if (tradeSum == numOfOtc ) {
+    //     console.log(`trades created is equal to ammount if trades in create settlement`);
+    //     tradeSum = true;
+      resolve(tradesNum);
+      }
+    // }
+  });
+}
+
 async function handleUnsettledTrades(data) {
   return new Promise((resolve, reject) => {
     if (tradesCollected == false) {
@@ -16,7 +34,7 @@ async function handleUnsettledTrades(data) {
   });
 }
 
-async function getUnsettledTrades() {
+async function getUnsettledTrades(numOfOtc) {
   const dataToSend = JSON.stringify({
     "type": "get_unsettled_trades",
     "id": "dc01e864-f3ed-4d4a-8110-0193f750a917",
@@ -28,6 +46,8 @@ async function getUnsettledTrades() {
   // if (tradesCollected == false) {
     return new Promise((resolve, reject) => {
       setMessageHandler(async (data) => {
+        const tradesNum = await handleNumOfTrades(data);
+        if (tradesNum == numOfOtc) {console.log(`Number of created OTC trades (${numOfOtc}) is equal to number of trades collected for settlement (${tradesNum})`)}
         const tradeCollections = await handleUnsettledTrades(data);
         resolve(tradeCollections);
       });
@@ -36,8 +56,8 @@ async function getUnsettledTrades() {
   // }
 }
 
-async function createSettlement() {
-  const collectedTrades = await getUnsettledTrades();
+async function createSettlement(numOfOtc) {
+  const collectedTrades = await getUnsettledTrades(numOfOtc);
   const dataToSend = JSON.stringify({
     "type": "create_settlement",
     "data": {

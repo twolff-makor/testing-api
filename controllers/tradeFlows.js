@@ -14,9 +14,9 @@ async function pause() {
 
 async function tradeFlow(numOfOtc) {
       for (let i = 0; i < numOfOtc; i++) {
-            console.log(i);
+        console.log(i);
         const balanceBeforeTrade = await getCompanyBalance();
-        console.log(`i am balance before trade ${balanceBeforeTrade}`);
+        // console.log(`i am balance before trade ${balanceBeforeTrade}`);
         const otcParams = generateOtcParams();
         const [base, quote] = otcParams[1].split("-");
         await createOtcTrade(

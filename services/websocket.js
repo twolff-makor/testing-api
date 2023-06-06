@@ -5,22 +5,25 @@ const WebSocket = require('ws');
 let ws;
 
 function openWebSocket(url) {
-  if (!ws) {
-    ws = new WebSocket(url);
-
-    ws.on('open', () => {
-      console.log('WebSocket connection established.');
-    });
-
-    ws.on('close', () => {
-      console.log('WebSocket connection closed.');
-      ws = null; 
-    });
-
-    ws.on('error', (error) => {
-      console.error('WebSocket error:', error);
-    });
-  }
+  return new Promise((resolve, reject) => {
+    if (!ws) {
+      ws = new WebSocket(url);
+  
+      ws.on('open', () => {
+        console.log('WebSocket connection established.');
+        resolve(ws)
+      });
+  
+      ws.on('close', () => {
+        console.log('WebSocket connection closed.');
+        ws = null; 
+      });
+  
+      ws.on('error', (error) => {
+        console.error('WebSocket error:', error);
+      });
+    }
+  });
 }
 
 function setMessageHandler(onMessage) {

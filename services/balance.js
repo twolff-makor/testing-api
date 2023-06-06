@@ -2,7 +2,7 @@ require('dotenv').config();
 const {sendWebSocketMessage, setMessageHandler } = require('./websocket');
 const winston = require('winston');
 
-let gotBalance = false; 
+// let gotBalance = false; 
 
 const dataToSend = JSON.stringify({
  "id": "88d594c9-5bd6-489e-9ee9-d70c6c0fb73b",
@@ -16,26 +16,27 @@ const dataToSend = JSON.stringify({
     }
 });
 
-  async function handleBalance(data) {
-      return new Promise((resolve, reject) => {  
-          const balance = data.content.balance
-          console.log(balance);
-          resolve(balance);
-          gotBalance = true;   
-        });
-      }
-        
-  async function getCompanyBalance() {
-    if (gotBalance == false) {
-      sendWebSocketMessage(dataToSend);
-      console.log(dataToSend)
-      setMessageHandler(handleBalance);
-      }  
-  }
-  
-module.exports = {
-    getCompanyBalance
-  };
+async function handleBalance(data) {
+  return new Promise((resolve, reject) => {
+    const balance = data.content.balance;
+    // console.log(balance);
+    resolve(balance);
+  });
+}
 
+async function getCompanyBalance() {
+  return new Promise((resolve, reject) => {
+    sendWebSocketMessage(dataToSend);
+    // console.log(dataToSend);
+    setMessageHandler(async (data) => {
+      const balance = await handleBalance(data);
+      resolve(balance);
+    });
+  });
+}
+
+module.exports = {
+  getCompanyBalance,
+};
 
 

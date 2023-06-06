@@ -4,8 +4,6 @@ const {sendWebSocketMessage, setMessageHandler} = require('./websocket');
 const winston = require('winston');
 const WS_URL = process.env.WS_URL
 
-// let createdTrade = false;
-
 const counterparties = ['04ea951e-3457-11ed-9f51-9c7bef452f5f',]
 const products = [{name: 'USDT-USD', lowPrice: 26000, highPrice: 29000, lowQty: 1, highQty: 1000, decimals: 2},
                 {name: 'BTC-USD', lowPrice: 26000, highPrice: 29000, lowQty: 0.0001, highQty: 20, decimals: 2},
@@ -60,56 +58,47 @@ function generateOtcParams() {
     }
 
     
-async function createOtcTrade(counterparty, product, side, qty, providerPrice, date, company, companyPrice, createdAllTrades) {
-    const dataToSend = JSON.stringify(
-        {"group": "otc",
-            "type": "report_trade_otc",
-            "data": {
-                "providers_trades": [
-                    {
-                    "counterparty": `${counterparty}`,
-                    "user": "3331a59b-a2c4-11ed-a122-0a45617894ef",
-                    "product": `${product}`,
-                    "side": `${side}`,
-                    "status": "VALIDATED",
-                    "quantity":`${qty}`,
-                    "type": "MANUAL FILL",
-                    "price": `${providerPrice}`,
-                    "comment": "",
-                    "executed_at": `${date}`
-                }
-            ],
-                "trade_company": {
-                "counterparty": `${company}`,
-                "product": `${product}`,
-                "side": `${side}`,
-                "status": "VALIDATED",
-                "quantity": `${qty}`,
-                "type": "MANUAL FILL",
-                "price": `${companyPrice}`,
-                "comment": "",
-                "executed_at": `${date}`
+    async function createOtcTrade(counterparty, product, side, qty, providerPrice, date, company, companyPrice, createdAllTrades) {
+        const dataToSend = JSON.stringify({
+          "group": "otc",
+          "type": "report_trade_otc",
+          "data": {
+            "providers_trades": [{
+              "counterparty": `${counterparty}`,
+              "user": "3331a59b-a2c4-11ed-a122-0a45617894ef",
+              "product": `${product}`,
+              "side": `${side}`,
+              "status": "VALIDATED",
+              "quantity": `${qty}`,
+              "type": "MANUAL FILL",
+              "price": `${providerPrice}`,
+              "comment": "",
+              "executed_at": `${date}`
+            }],
+            "trade_company": {
+              "counterparty": `${company}`,
+              "product": `${product}`,
+              "side": `${side}`,
+              "status": "VALIDATED",
+              "quantity": `${qty}`,
+              "type": "MANUAL FILL",
+              "price": `${companyPrice}`,
+              "comment": "",
+              "executed_at": `${date}`
             },
             "otc_type": "PAIRED"
-            }
-})
-            // console.log(dataToSend);
-   
-            // if (createdAllTrades == false) {
-                return new Promise((resolve, reject) => {
-                    setMessageHandler(console.log);
-                    sendWebSocketMessage(dataToSend);
-                    // createdTrade = true;
-              });
-            // }
-}
-
-
-
-module.exports = {
-    createOtcTrade,
-    generateOtcParams
-  };
-
-
+          }
+        });
+      
+        return new Promise((resolve, reject) => {
+          sendWebSocketMessage(dataToSend);
+          setMessageHandler(resolve);
+        });
+      }
+      
+      module.exports = {
+        createOtcTrade,
+        generateOtcParams
+      };
+      
 

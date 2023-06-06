@@ -10,14 +10,16 @@ let numOfOtc = 10;
 (async () => {
             let REST_TOKEN = await getRestToken();
             let WS_TOKEN = await getWsToken();
-            let connection = openWebSocket(`${process.env.WS_URL}/?token=${WS_TOKEN}`)
-            await pause();
-            let trade = await tradeFlow(numOfOtc);
-            await createSettlement()
-            // let coco = await pause();
-            // getCompanyBalance()
-            // createSettlement();
+            let connection = await openWebSocket(`${process.env.WS_URL}/?token=${WS_TOKEN}`)
+
+            if (connection) {
+                   let trade = await tradeFlow(numOfOtc);
+                   let settlement = await createSettlement()
+                   // let coco = await pause();
+                   // getCompanyBalance()
+                   // createSettlement();
+            }
+
                    })();
             
             
-                

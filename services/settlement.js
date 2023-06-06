@@ -1,81 +1,60 @@
 require('dotenv').config();
-const WebSocket = require('ws');
 const winston = require('winston');
-const WS_URL = process.env.WS_URL
+const { sendWebSocketMessage, setMessageHandler } = require('./websocket');
 
 let tradesCollected = false;
-let ws;
+// let createdSettlement = false;
 
-async function getUnsettledTrades(TOKEN) {
-    return new Promise((resolve, reject) => {
-        if (!ws) {
-            ws = new WebSocket(`${WS_URL}/?token=${TOKEN}`);
-        }
-
-        const dataToSend = JSON.stringify({
-            "type": "get_unsettled_trades",
-            "id": "dc01e864-f3ed-4d4a-8110-0193f750a917",
-            "data": {
-                "company_id": "62b08b48-aaa7-11ed-a122-0a45617894ef"
-            }
-        });
-
-        ws.on('open', () => {
-            console.log('WebSocket connection established - get unsettled trades');
-            ws.send(dataToSend);
-        });
-
-        ws.on('message', (data) => {
-            if (tradesCollected === false) {
-                const response = JSON.parse(data.toString('utf8'));
-                const message = response.content?.unsettled_trades || '';
-                console.log(message)
-                const tradeCollections = message.map(item => item.trade_collection);
-                resolve(tradeCollections);
-                tradesCollected = true;
-            } else {return}
-        });
-
-    });
+async function handleUnsettledTrades(data) {
+  return new Promise((resolve, reject) => {
+    if (tradesCollected == false) {
+      const trades = data.content?.unsettled_trades || '';
+      const tradeCollections = trades.map(item => item.trade_collection);
+      tradesCollected = true;
+      resolve(tradeCollections);
+    }
+  });
 }
 
+async function getUnsettledTrades() {
+  const dataToSend = JSON.stringify({
+    "type": "get_unsettled_trades",
+    "id": "dc01e864-f3ed-4d4a-8110-0193f750a917",
+    "data": {
+      "company_id": "62b08b48-aaa7-11ed-a122-0a45617894ef"
+    }
+  });
 
+  // if (tradesCollected == false) {
+    return new Promise((resolve, reject) => {
+      setMessageHandler(async (data) => {
+        const tradeCollections = await handleUnsettledTrades(data);
+        resolve(tradeCollections);
+      });
+      sendWebSocketMessage(dataToSend);
+    });
+  // }
+}
 
-async function createSettlement(TOKEN) {
-        TOKEN = TOKEN.slice(1, -1);
-        const collectedTrades = await getUnsettledTrades(TOKEN);
-        console.log(collectedTrades);
-        const dataToSend = JSON.stringify(
-            {
-                "type": "create_settlement",
-                "data": {"trades_collection": collectedTrades,
-                        "company_id": "62b08b48-aaa7-11ed-a122-0a45617894ef"
-                }
-            });
-        console.log(dataToSend);
+async function createSettlement() {
+  const collectedTrades = await getUnsettledTrades();
+  const dataToSend = JSON.stringify({
+    "type": "create_settlement",
+    "data": {
+      "trades_collection": collectedTrades,
+      "company_id": "62b08b48-aaa7-11ed-a122-0a45617894ef"
+    }
+  });
 
-        if (dataToSend) {
-            ws.send(dataToSend);
-        }
-            
-        ws.on('message', (data) => {
-            const response = JSON.parse(data.toString('utf8'));
-            const message = response.content?.unsettled_trades || [];
-            mess = message
-            console.log(mess);
-            });
-
-
-          ws.on('close', () => {
-              console.log('WebSocket connection closed');
-          });
-        }
-         
-
+  // if (createdSettlement == false) {
+    return new Promise((resolve, reject) => {
+      setMessageHandler(console.log);
+      sendWebSocketMessage(dataToSend);
+      // createdSettlement = true;
+    });
+  // }
+}
 
 module.exports = {
-    createSettlement,
-  };
-
-
-
+  createSettlement
+};

@@ -1,24 +1,25 @@
 require('dotenv').config();
 const winston = require('winston');
-const { getToken } = require('./services/auth');
+const { getWsToken, getRestToken} = require('./services/auth');
+const { openWebSocket } = require('./services/websocket');
 const { createSettlement} = require('./services/settlement');
 const { tradeFlow , pause } = require('./controllers/tradeFlows');
+const { getCompanyBalance } = require('./services/balance');
 
-
+let numOfOtc = 10;
 (async () => {
+            let REST_TOKEN = await getRestToken();
+            let WS_TOKEN = await getWsToken();
+            let connection = await openWebSocket(`${process.env.WS_URL}/?token=${WS_TOKEN}`)
 
-            let numOfOtc = 10;
-            
-            let TOKEN = await getToken();
-            console.log('Token :', TOKEN);    
-            
-            
-            let trade = await tradeFlow(TOKEN, numOfOtc);
-            let popo = await pause();
-            await createSettlement(TOKEN)
-                  
-            
+            if (connection) {
+                   let trade = await tradeFlow(numOfOtc);
+                   let settlement = await createSettlement()
+                   // let coco = await pause();
+                   // getCompanyBalance()
+                   // createSettlement();
+            }
+      
                    })();
             
             
-                

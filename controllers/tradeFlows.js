@@ -1,5 +1,5 @@
 require('dotenv').config();
-
+const BigNumber = require('bignumber.js');
 const { getCompanyBalance } = require('../services/balance'); 
 const { createOtcTrade , generateOtcParams} = require('../services/trade');
 // BigNumber.prototype[require('util').inspect.custom] = BigNumber.prototype.valueOf;

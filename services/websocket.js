@@ -1,5 +1,3 @@
-// websocket.js
-
 const WebSocket = require('ws');
 
 let ws;

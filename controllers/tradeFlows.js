@@ -4,18 +4,21 @@ const { getCompanyBalance } = require('../services/balance');
 const { createOtcTrade , generateOtcParams} = require('../services/trade');
 // BigNumber.prototype[require('util').inspect.custom] = BigNumber.prototype.valueOf;
 
+// let createdAllTrades = false; 
+
+
 async function pause() {
     await new Promise((resolve) => setTimeout(resolve, 500));
 }
 
-async function tradeFlow(TOKEN, numOfOtc) {
+async function tradeFlow(numOfOtc) {
       for (let i = 0; i < numOfOtc; i++) {
-        const balanceBeforeTrade = await getCompanyBalance(TOKEN);
-    
-        let otcParams = generateOtcParams();
+        console.log(i);
+        const balanceBeforeTrade = await getCompanyBalance();
+        // console.log(`i am balance before trade ${balanceBeforeTrade}`);
+        const otcParams = generateOtcParams();
         const [base, quote] = otcParams[1].split("-");
         await createOtcTrade(
-          TOKEN,
           otcParams[0],
           otcParams[1],
           otcParams[2],
@@ -23,13 +26,15 @@ async function tradeFlow(TOKEN, numOfOtc) {
           otcParams[4],
           otcParams[5],
           otcParams[6],
-          otcParams[7]
+          otcParams[7],
         );
     
         let time = await pause();
-        const balanceAfterTrade = await getCompanyBalance(TOKEN);
+        let tine = await pause();
+        
+        const balanceAfterTrade = await getCompanyBalance();
     
-      //   BigNumber.set({ DECIMAL_PLACES: 1})
+        BigNumber.set({ DECIMAL_PLACES: 0})
 
         let side = otcParams[2]
         let qty = new BigNumber(otcParams[3])
@@ -62,10 +67,11 @@ async function tradeFlow(TOKEN, numOfOtc) {
           console.log("Side is not buy or sell");
         }
       }
+
     }
     
     
 module.exports = {
     tradeFlow,
-    pause
+    pause,
   };

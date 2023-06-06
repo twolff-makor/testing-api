@@ -1,26 +1,25 @@
 require('dotenv').config();
-const { getToken } = require('./services/auth');
+const winston = require('winston');
+const { getWsToken, getRestToken} = require('./services/auth');
+const { openWebSocket } = require('./services/websocket');
 const { createSettlement} = require('./services/settlement');
 const { tradeFlow , pause } = require('./controllers/tradeFlows');
-const WebSocket = require('ws');
+const { getCompanyBalance } = require('./services/balance');
 
-
-
+let numOfOtc = 10;
 (async () => {
+            let REST_TOKEN = await getRestToken();
+            let WS_TOKEN = await getWsToken();
+            let connection = await openWebSocket(`${process.env.WS_URL}/?token=${WS_TOKEN}`)
 
-            let numOfOtc = 10;
-            
-            let TOKEN = await getToken();
-            console.log('Token :', TOKEN);    
-            ws = new WebSocket(`wss://uat.ws-api.enigma-x.io/?token=${TOKEN}`);
-            let gogo = await pause ();
-
-            let trade = await tradeFlow(TOKEN, numOfOtc);
-            let popo = await pause();
-            await createSettlement(TOKEN)
-                  
-            
+            if (connection) {
+                   let trade = await tradeFlow(numOfOtc);
+                   let settlement = await createSettlement()
+                   // let coco = await pause();
+                   // getCompanyBalance()
+                   // createSettlement();
+            }
+      
                    })();
             
             
-                

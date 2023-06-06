@@ -26,25 +26,12 @@ function openWebSocket(url) {
   });
 }
 
-// function setMessageHandler(onMessage) {
-//   if (ws) {
-//     ws.on('message', (data) => {
-//         data = JSON.parse(data.toString('utf8'));
-//         // console.log('Received message:', data);
-//         onMessage(data);
-       
-//     });
-//   }
-// }
-
-
 function setMessageHandler(onMessage) {
   const messageListener = (data) => {
     data = JSON.parse(data.toString('utf8'));
     onMessage(data);
     ws.removeListener('message', messageListener);
   };
-
   if (ws) {
     ws.on('message', messageListener);
   }

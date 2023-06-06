@@ -47,7 +47,7 @@ async function getUnsettledTrades(numOfOtc) {
     return new Promise((resolve, reject) => {
       setMessageHandler(async (data) => {
         const tradesNum = await handleNumOfTrades(data);
-        if (tradesNum == numOfOtc) {console.log(`Number of created OTC trades (${numOfOtc}) is equal to number of trades collected (${tradesNum})`)}
+        if (tradesNum == numOfOtc) {console.log(`Number of created OTC trades (${numOfOtc}) is equal to number of trades collected for settlement (${tradesNum})`)}
         const tradeCollections = await handleUnsettledTrades(data);
         resolve(tradeCollections);
       });

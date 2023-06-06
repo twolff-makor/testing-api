@@ -1,6 +1,5 @@
 require('dotenv').config();
 const WebSocket = require('ws');
-const winston = require('winston');
 const WS_URL = process.env.WS_URL
 
 const counterparties = ['04ea951e-3457-11ed-9f51-9c7bef452f5f',]

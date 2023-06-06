@@ -2,6 +2,7 @@ require('dotenv').config();
 const {sendWebSocketMessage, setMessageHandler } = require('./websocket');
 const winston = require('winston');
 
+
 // let gotBalance = false; 
 
 const dataToSend = JSON.stringify({

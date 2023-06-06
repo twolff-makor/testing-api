@@ -56,7 +56,6 @@ function generateOtcParams() {
         let params = [counterparty, product, side, qty, providerPrice, date, company, companyPrice]
         return params;
     }
-
     
     async function createOtcTrade(counterparty, product, side, qty, providerPrice, date, company, companyPrice, createdAllTrades) {
         const dataToSend = JSON.stringify({
@@ -88,6 +87,7 @@ function generateOtcParams() {
             },
             "otc_type": "PAIRED"
           }
+
         });
       
         return new Promise((resolve, reject) => {

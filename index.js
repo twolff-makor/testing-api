@@ -19,7 +19,7 @@ let numOfOtc = 10;
                    // getCompanyBalance()
                    // createSettlement();
             }
-
+      
                    })();
             
             

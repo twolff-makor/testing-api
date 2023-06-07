@@ -3,7 +3,7 @@ const winston = require('winston');
 const { getWsToken, getRestToken} = require('./services/auth');
 const { openWebSocket } = require('./services/websocket');
 const { createSettlement} = require('./services/settlement');
-const { tradeFlow , pause } = require('./controllers/tradeFlows');
+const { tradeFlow , pause } = require('./controllers/tradeFlow');
 
 let numOfOtc = 5;
 

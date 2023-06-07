@@ -12,6 +12,10 @@ async function pause() {
 }
 
 async function tradeFlow(numOfOtc) {
+  let qtySum = 0;
+  let baseDeltaSum = 0;
+  let quoteDeltaSum = 0;
+  let quoteAmountSum = 0;
   logger.info(`STARTING TRADE FLOW. MAKING ${numOfOtc} OTC TRADES`);
       for (let i = 0; i < numOfOtc; i++) {
         const balanceBeforeTrade = await getCompanyBalance();
@@ -56,17 +60,21 @@ async function tradeFlow(numOfOtc) {
         let quoteDelta = (new BigNumber(quoteBeforeTrade.minus(quoteAfterTrade)))
         let quoteAmount = (new BigNumber(qty.multipliedBy(companyPrice)))
         
+        
         logger.info(`COMPARING BALANCES - COMPANY SIDE.
-                      QUOTE BALANCE BEFORE TRADE : ${quoteBeforeTrade} 
-                      QUOTE BALANCE AFTER TRADE : ${quoteAfterTrade}
-                      BASE BALANCE BEFORE TRADE : ${baseBeforeTrade} 
-                      BASE BALANCE AFTER TRADE : ${baseAfterTrade} `);
-
+        QUOTE BALANCE BEFORE TRADE : ${quoteBeforeTrade} 
+        QUOTE BALANCE AFTER TRADE : ${quoteAfterTrade}
+        BASE BALANCE BEFORE TRADE : ${baseBeforeTrade} 
+        BASE BALANCE AFTER TRADE : ${baseAfterTrade} `);
+        
         qty = qty.integerValue()
         baseDelta = baseDelta.integerValue()
         quoteDelta = quoteDelta.integerValue()
         quoteAmount = quoteAmount.integerValue()
-
+        
+        qtySum += qty.toNumber();
+        console.log(qtySum);
+        
         if (side == "BUY") {
             if (baseDelta.isEqualTo(qty) && quoteDelta.isEqualTo(quoteAmount)) {
               logger.info(`BALANCE IS CORRECT.`);
@@ -90,4 +98,8 @@ async function tradeFlow(numOfOtc) {
 module.exports = {
     tradeFlow,
     pause,
+    // qtySum, 
+    // baseDeltaSum,
+    // quoteDeltaSum,
+    // quoteAmountSum,
   };

@@ -1,7 +1,6 @@
-const { createLogger, format, transports} = require('winston');
+const { createLogger, format, transports } = require('winston');
 const DailyRotateFile = require('winston-daily-rotate-file');
 const { combine, timestamp, simple } = format;
-
 const consoleTransport = new transports.Console();
 const fileTransport = new transports.File({ filename: 'log_files.log' });
 
@@ -13,10 +12,10 @@ const logger = createLogger({
       info: 2,
       debug: 3
     },
-  format: format.combine(
-    format.timestamp(),
-    format.simple()
-  ),
+    format: format.combine(
+      format.timestamp(),
+      format.simple()
+    ),
   transports: [
     consoleTransport,
     fileTransport, 
@@ -24,7 +23,7 @@ const logger = createLogger({
         filename: 'log_files/application-%DATE%.log',
         datePattern: 'YYYY-MM-DDTHHmmss',
         maxSize: '10m', 
-        maxFiles: 1 // Keep only the latest log file
+        maxFiles: 10 // Keep only the latest log file
       }),
   ]
 });

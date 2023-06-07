@@ -307,3 +307,737 @@ info: COMPARING BALANCES COMPANY SIDE,
                       BASE BALANCE BEFORE TRADE : 64394310.75867793, 
                       BASE BALANCE AFTER TRADE : 64394251.45867793,  {"timestamp":"2023-06-07T09:48:22.184Z"}
 info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T09:48:22.187Z"}
+info: STARTING TRADE FLOW. MAKING 5 OTC TRADES {"timestamp":"2023-06-07T09:50:07.695Z"}
+info: CREATING OTC TRADE. DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : TRX-USD 
+                      QTY : 535.33
+                      PROVIDER PRICE : 28017.04
+                      COMPANY PRICE : 28003.03148 {"timestamp":"2023-06-07T09:50:07.948Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : 1447799684.61 
+                      QUOTE BALANCE AFTER TRADE : 1462790547.45
+                      BASE BALANCE BEFORE TRADE : -14781.69 
+                      BASE BALANCE AFTER TRADE : -15317.02  {"timestamp":"2023-06-07T09:50:09.001Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T09:50:09.005Z"}
+info: CREATING OTC TRADE. DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : BUSD-USD 
+                      QTY : 418.23
+                      PROVIDER PRICE : 28087.46
+                      COMPANY PRICE : 28101.503729999997 {"timestamp":"2023-06-07T09:50:09.244Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : 1462790547.45 
+                      QUOTE BALANCE AFTER TRADE : 1451037655.55
+                      BASE BALANCE BEFORE TRADE : 3996.69 
+                      BASE BALANCE AFTER TRADE : 4414.92  {"timestamp":"2023-06-07T09:50:10.299Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T09:50:10.301Z"}
+info: CREATING OTC TRADE. DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-EUR 
+                      QTY : 7.33
+                      PROVIDER PRICE : 28163.30
+                      COMPANY PRICE : 28177.38165 {"timestamp":"2023-06-07T09:50:10.523Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : -1495457.27 
+                      QUOTE BALANCE AFTER TRADE : -1701997.48
+                      BASE BALANCE BEFORE TRADE : 169.29693633 
+                      BASE BALANCE AFTER TRADE : 176.62693633  {"timestamp":"2023-06-07T09:50:11.569Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T09:50:11.572Z"}
+info: CREATING OTC TRADE. DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : USDC-USD 
+                      QTY : 560.10
+                      PROVIDER PRICE : 27450.72
+                      COMPANY PRICE : 27464.445359999998 {"timestamp":"2023-06-07T09:50:11.792Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : 1451037655.55 
+                      QUOTE BALANCE AFTER TRADE : 1435654819.7
+                      BASE BALANCE BEFORE TRADE : 64394251.45867793 
+                      BASE BALANCE AFTER TRADE : 64394811.55867793  {"timestamp":"2023-06-07T09:50:12.858Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T09:50:12.861Z"}
+info: CREATING OTC TRADE. DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-EUR 
+                      QTY : 3.96
+                      PROVIDER PRICE : 28157.39
+                      COMPANY PRICE : 28143.311305 {"timestamp":"2023-06-07T09:50:13.083Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : -1701997.48 
+                      QUOTE BALANCE AFTER TRADE : -1590549.97
+                      BASE BALANCE BEFORE TRADE : 176.62693633 
+                      BASE BALANCE AFTER TRADE : 172.66693633  {"timestamp":"2023-06-07T09:50:14.145Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T09:50:14.148Z"}
+info: STARTING TRADE FLOW. MAKING 5 OTC TRADES {"timestamp":"2023-06-07T10:16:53.178Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-USDC 
+                      QTY : 9.88
+                      PROVIDER PRICE : 28889.00
+                      COMPANY PRICE : 28903.444499999998 {"timestamp":"2023-06-07T10:16:53.411Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : 64394811.55867793 
+                      QUOTE BALANCE AFTER TRADE : 64109245.52701793
+                      BASE BALANCE BEFORE TRADE : 172.66693633 
+                      BASE BALANCE AFTER TRADE : 182.54693633  {"timestamp":"2023-06-07T10:16:54.473Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:16:54.476Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : TRX-USD 
+                      QTY : 1705.47
+                      PROVIDER PRICE : 26042.36
+                      COMPANY PRICE : 26055.38118 {"timestamp":"2023-06-07T10:16:54.699Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : 1435654819.7 
+                      QUOTE BALANCE AFTER TRADE : 1391218148.76
+                      BASE BALANCE BEFORE TRADE : -15317.02 
+                      BASE BALANCE AFTER TRADE : -13611.55  {"timestamp":"2023-06-07T10:16:55.738Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:16:55.740Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : USDC-EUR 
+                      QTY : 179.13
+                      PROVIDER PRICE : 26767.39
+                      COMPANY PRICE : 26754.006305000003 {"timestamp":"2023-06-07T10:16:55.964Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : -1590549.97 
+                      QUOTE BALANCE AFTER TRADE : 3201895.18
+                      BASE BALANCE BEFORE TRADE : 64109245.52701793 
+                      BASE BALANCE AFTER TRADE : 64109066.39701793  {"timestamp":"2023-06-07T10:16:57.005Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:16:57.008Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-USD 
+                      QTY : 16.52
+                      PROVIDER PRICE : 26516.58
+                      COMPANY PRICE : 26503.321710000004 {"timestamp":"2023-06-07T10:16:57.229Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : 1391218148.76 
+                      QUOTE BALANCE AFTER TRADE : 1391655983.64
+                      BASE BALANCE BEFORE TRADE : 182.54693633 
+                      BASE BALANCE AFTER TRADE : 166.02693633  {"timestamp":"2023-06-07T10:16:58.285Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:16:58.287Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : TRX-USD 
+                      QTY : 1941.33
+                      PROVIDER PRICE : 28745.32
+                      COMPANY PRICE : 28730.947340000002 {"timestamp":"2023-06-07T10:16:58.508Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : 1391655983.64 
+                      QUOTE BALANCE AFTER TRADE : 1447432233.64
+                      BASE BALANCE BEFORE TRADE : -13611.55 
+                      BASE BALANCE AFTER TRADE : -15552.88  {"timestamp":"2023-06-07T10:16:59.553Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:16:59.556Z"}
+info: STARTING TRADE FLOW. MAKING 5 OTC TRADES {"timestamp":"2023-06-07T10:42:13.486Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : BUSD-USD 
+                      QTY : 815.06
+                      PROVIDER PRICE : 28185.28
+                      COMPANY PRICE : 28199.372639999998 {"timestamp":"2023-06-07T10:42:13.718Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1447432233.64 
+        QUOTE BALANCE AFTER TRADE : 1424448052.97
+        BASE BALANCE BEFORE TRADE : 4414.92 
+        BASE BALANCE AFTER TRADE : 5229.98  {"timestamp":"2023-06-07T10:42:14.813Z"}
+info: BALANCE IS INCORRECT. QTY: 815, BASE DELTA: 815, QUOTE DELTA: 22984181, QUOTE QTY: 22982489 {"timestamp":"2023-06-07T10:42:14.817Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : BUSD-USD 
+                      QTY : 29.06
+                      PROVIDER PRICE : 26984.86
+                      COMPANY PRICE : 26998.35243 {"timestamp":"2023-06-07T10:42:15.040Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1424448052.97 
+        QUOTE BALANCE AFTER TRADE : 1423663480.85
+        BASE BALANCE BEFORE TRADE : 5229.98 
+        BASE BALANCE AFTER TRADE : 5259.04  {"timestamp":"2023-06-07T10:42:16.105Z"}
+info: BALANCE IS INCORRECT. QTY: 29, BASE DELTA: 29, QUOTE DELTA: 784572, QUOTE QTY: 782952 {"timestamp":"2023-06-07T10:42:16.108Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : ETH-EUR 
+                      QTY : 34.13
+                      PROVIDER PRICE : 27718.16
+                      COMPANY PRICE : 27704.30092 {"timestamp":"2023-06-07T10:42:16.331Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 3201895.18 
+        QUOTE BALANCE AFTER TRADE : 4147442.97
+        BASE BALANCE BEFORE TRADE : -440.1345 
+        BASE BALANCE AFTER TRADE : -474.2645  {"timestamp":"2023-06-07T10:42:17.390Z"}
+info: BALANCE IS INCORRECT. QTY: -34, BASE DELTA: -34, QUOTE DELTA: -945548, QUOTE QTY: -941946 {"timestamp":"2023-06-07T10:42:17.393Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : USDC-USD 
+                      QTY : 85.77
+                      PROVIDER PRICE : 28249.27
+                      COMPANY PRICE : 28235.145365 {"timestamp":"2023-06-07T10:42:17.614Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1423663480.85 
+        QUOTE BALANCE AFTER TRADE : 1426085209.27
+        BASE BALANCE BEFORE TRADE : 64109066.39701793 
+        BASE BALANCE AFTER TRADE : 64108980.62701793  {"timestamp":"2023-06-07T10:42:18.666Z"}
+info: BALANCE IS INCORRECT. QTY: -86, BASE DELTA: -86, QUOTE DELTA: -2421728, QUOTE QTY: -2428223 {"timestamp":"2023-06-07T10:42:18.668Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : USDC-EUR 
+                      QTY : 449.33
+                      PROVIDER PRICE : 28901.01
+                      COMPANY PRICE : 28915.460504999995 {"timestamp":"2023-06-07T10:42:18.890Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 4147442.97 
+        QUOTE BALANCE AFTER TRADE : -8845140.9
+        BASE BALANCE BEFORE TRADE : 64108980.62701793 
+        BASE BALANCE AFTER TRADE : 64109429.95701793  {"timestamp":"2023-06-07T10:42:19.933Z"}
+info: BALANCE IS INCORRECT. QTY: 449, BASE DELTA: 449, QUOTE DELTA: 12992584, QUOTE QTY: 12983042 {"timestamp":"2023-06-07T10:42:19.936Z"}
+info: STARTING TRADE FLOW. MAKING 5 OTC TRADES {"timestamp":"2023-06-07T10:43:45.024Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : XLM-USD 
+                      QTY : 1798.86
+                      PROVIDER PRICE : 28265.39
+                      COMPANY PRICE : 28251.257305 {"timestamp":"2023-06-07T10:43:45.254Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1426085209 
+        QUOTE BALANCE AFTER TRADE : 1476905266
+        BASE BALANCE BEFORE TRADE : -27845 
+        BASE BALANCE AFTER TRADE : -29644  {"timestamp":"2023-06-07T10:43:46.320Z"}
+info: BALANCE IS INCORRECT. QTY: -1799, BASE DELTA: -1799, QUOTE DELTA: -50820057, QUOTE QTY: -50823549 {"timestamp":"2023-06-07T10:43:46.323Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : USDC-EUR 
+                      QTY : 252.86
+                      PROVIDER PRICE : 28629.41
+                      COMPANY PRICE : 28643.724704999997 {"timestamp":"2023-06-07T10:43:46.547Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : -8845141 
+        QUOTE BALANCE AFTER TRADE : -16087993
+        BASE BALANCE BEFORE TRADE : 64109430 
+        BASE BALANCE AFTER TRADE : 64109683  {"timestamp":"2023-06-07T10:43:47.588Z"}
+info: BALANCE IS INCORRECT. QTY: 253, BASE DELTA: 253, QUOTE DELTA: 7242852, QUOTE QTY: 7246932 {"timestamp":"2023-06-07T10:43:47.590Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : TRX-USD 
+                      QTY : 2049.85
+                      PROVIDER PRICE : 27780.97
+                      COMPANY PRICE : 27767.079515 {"timestamp":"2023-06-07T10:43:47.812Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1476905266 
+        QUOTE BALANCE AFTER TRADE : 1533823614
+        BASE BALANCE BEFORE TRADE : -15553 
+        BASE BALANCE AFTER TRADE : -17603  {"timestamp":"2023-06-07T10:43:48.855Z"}
+info: BALANCE IS INCORRECT. QTY: -2050, BASE DELTA: -2050, QUOTE DELTA: -56918348, QUOTE QTY: -56922350 {"timestamp":"2023-06-07T10:43:48.858Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-EUR 
+                      QTY : 4.12
+                      PROVIDER PRICE : 27722.16
+                      COMPANY PRICE : 27708.29892 {"timestamp":"2023-06-07T10:43:49.079Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : -16087993 
+        QUOTE BALANCE AFTER TRADE : -15973835
+        BASE BALANCE BEFORE TRADE : 166 
+        BASE BALANCE AFTER TRADE : 162  {"timestamp":"2023-06-07T10:43:50.130Z"}
+info: BALANCE IS INCORRECT. QTY: -4, BASE DELTA: -4, QUOTE DELTA: -114158, QUOTE QTY: -110832 {"timestamp":"2023-06-07T10:43:50.132Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-GBP 
+                      QTY : 1.74
+                      PROVIDER PRICE : 27413.18
+                      COMPANY PRICE : 27399.473410000002 {"timestamp":"2023-06-07T10:43:50.353Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : -395610477 
+        QUOTE BALANCE AFTER TRADE : -395562802
+        BASE BALANCE BEFORE TRADE : 162 
+        BASE BALANCE AFTER TRADE : 160  {"timestamp":"2023-06-07T10:43:51.393Z"}
+info: BALANCE IS INCORRECT. QTY: -2, BASE DELTA: -2, QUOTE DELTA: -47675, QUOTE QTY: -54798 {"timestamp":"2023-06-07T10:43:51.396Z"}
+info: STARTING TRADE FLOW. MAKING 5 OTC TRADES {"timestamp":"2023-06-07T10:45:05.539Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : TRX-USD 
+                      QTY : 1680.45
+                      PROVIDER PRICE : 26829.78
+                      COMPANY PRICE : 26843.19489 {"timestamp":"2023-06-07T10:45:05.769Z"}
+info: STARTING TRADE FLOW. MAKING 5 OTC TRADES {"timestamp":"2023-06-07T10:47:18.991Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : ETH-EUR 
+                      QTY : 12.61
+                      PROVIDER PRICE : 28253.10
+                      COMPANY PRICE : 28267.226549999996 {"timestamp":"2023-06-07T10:47:19.234Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : -15973834.94 
+                      QUOTE BALANCE AFTER TRADE : -16330284.66
+                      BASE BALANCE BEFORE TRADE : -474.2645 
+                      BASE BALANCE AFTER TRADE : -461.6545  {"timestamp":"2023-06-07T10:47:20.297Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:47:20.301Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : ETH-USD 
+                      QTY : 96.76
+                      PROVIDER PRICE : 28899.63
+                      COMPANY PRICE : 28914.079815 {"timestamp":"2023-06-07T10:47:20.523Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : 1488714967.07 
+                      QUOTE BALANCE AFTER TRADE : 1485917240.71
+                      BASE BALANCE BEFORE TRADE : -461.6545 
+                      BASE BALANCE AFTER TRADE : -364.8945  {"timestamp":"2023-06-07T10:47:21.574Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:47:21.576Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : ETH-EUR 
+                      QTY : 20.83
+                      PROVIDER PRICE : 28665.86
+                      COMPANY PRICE : 28680.192929999997 {"timestamp":"2023-06-07T10:47:21.797Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : -16330284.66 
+                      QUOTE BALANCE AFTER TRADE : -16927693.08
+                      BASE BALANCE BEFORE TRADE : -364.8945 
+                      BASE BALANCE AFTER TRADE : -344.0645  {"timestamp":"2023-06-07T10:47:22.887Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:47:22.890Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-GBP 
+                      QTY : 1.84
+                      PROVIDER PRICE : 26864.14
+                      COMPANY PRICE : 26850.70793 {"timestamp":"2023-06-07T10:47:23.111Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : -395562801.66 
+                      QUOTE BALANCE AFTER TRADE : -395513396.36
+                      BASE BALANCE BEFORE TRADE : 160.16693633 
+                      BASE BALANCE AFTER TRADE : 158.32693633  {"timestamp":"2023-06-07T10:47:24.158Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:47:24.161Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : USDC-USD 
+                      QTY : 937.21
+                      PROVIDER PRICE : 26960.57
+                      COMPANY PRICE : 26947.089715000002 {"timestamp":"2023-06-07T10:47:24.382Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+                      QUOTE BALANCE BEFORE TRADE : 1485917240.71 
+                      QUOTE BALANCE AFTER TRADE : 1511172322.66
+                      BASE BALANCE BEFORE TRADE : 64109682.81701793 
+                      BASE BALANCE AFTER TRADE : 64108745.60701793  {"timestamp":"2023-06-07T10:47:25.424Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:47:25.427Z"}
+info: STARTING TRADE FLOW. MAKING 5 OTC TRADES {"timestamp":"2023-06-07T10:47:50.689Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : ETH-EUR 
+                      QTY : 77.79
+                      PROVIDER PRICE : 28516.33
+                      COMPANY PRICE : 28530.588165 {"timestamp":"2023-06-07T10:47:50.921Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : -16927693.08 
+        QUOTE BALANCE AFTER TRADE : -19147087.53
+        BASE BALANCE BEFORE TRADE : -344.0645 
+        BASE BALANCE AFTER TRADE : -266.2745  {"timestamp":"2023-06-07T10:47:51.973Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:47:51.977Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : ADA-USD 
+                      QTY : 1694.90
+                      PROVIDER PRICE : 27727.06
+                      COMPANY PRICE : 27713.196470000003 {"timestamp":"2023-06-07T10:47:52.199Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1511172322.66 
+        QUOTE BALANCE AFTER TRADE : 1558143419.36
+        BASE BALANCE BEFORE TRADE : -13843.59 
+        BASE BALANCE AFTER TRADE : -15538.49  {"timestamp":"2023-06-07T10:47:53.256Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:47:53.259Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-EUR 
+                      QTY : 8.48
+                      PROVIDER PRICE : 27166.48
+                      COMPANY PRICE : 27152.89676 {"timestamp":"2023-06-07T10:47:53.480Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : -19147087.53 
+        QUOTE BALANCE AFTER TRADE : -18916830.97
+        BASE BALANCE BEFORE TRADE : 158.32693633 
+        BASE BALANCE AFTER TRADE : 149.84693633  {"timestamp":"2023-06-07T10:47:54.541Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:47:54.544Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : TRX-USD 
+                      QTY : 2337.71
+                      PROVIDER PRICE : 27494.95
+                      COMPANY PRICE : 27481.202525 {"timestamp":"2023-06-07T10:47:54.776Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1558143419.36 
+        QUOTE BALANCE AFTER TRADE : 1622386501.32
+        BASE BALANCE BEFORE TRADE : -15922.28 
+        BASE BALANCE AFTER TRADE : -18259.99  {"timestamp":"2023-06-07T10:47:55.822Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:47:55.825Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-USD 
+                      QTY : 19.06
+                      PROVIDER PRICE : 28490.89
+                      COMPANY PRICE : 28476.644555000003 {"timestamp":"2023-06-07T10:47:56.049Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1622386501.32 
+        QUOTE BALANCE AFTER TRADE : 1622929266.16
+        BASE BALANCE BEFORE TRADE : 149.84693633 
+        BASE BALANCE AFTER TRADE : 130.78693633  {"timestamp":"2023-06-07T10:47:57.094Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:47:57.096Z"}
+info: STARTING TRADE FLOW. MAKING 5 OTC TRADES {"timestamp":"2023-06-07T10:56:51.175Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : TRX-USD 
+                      QTY : 3448.77
+                      PROVIDER PRICE : 27445.35
+                      COMPANY PRICE : 27431.627325 {"timestamp":"2023-06-07T10:56:51.412Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1622929266.16 
+        QUOTE BALANCE AFTER TRADE : 1717534639.53
+        BASE BALANCE BEFORE TRADE : -18259.99 
+        BASE BALANCE AFTER TRADE : -21708.76  {"timestamp":"2023-06-07T10:56:52.471Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:56:52.473Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : USDC-USD 
+                      QTY : 15.13
+                      PROVIDER PRICE : 27202.96
+                      COMPANY PRICE : 27189.35852 {"timestamp":"2023-06-07T10:56:52.707Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1717534639.53 
+        QUOTE BALANCE AFTER TRADE : 1717946014.52
+        BASE BALANCE BEFORE TRADE : 64108745.60701793 
+        BASE BALANCE AFTER TRADE : 64108730.47701792  {"timestamp":"2023-06-07T10:56:53.759Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:56:53.761Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-GBP 
+                      QTY : 9.04
+                      PROVIDER PRICE : 27786.48
+                      COMPANY PRICE : 27772.586760000002 {"timestamp":"2023-06-07T10:56:53.981Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : -395513396.36 
+        QUOTE BALANCE AFTER TRADE : -395262332.17
+        BASE BALANCE BEFORE TRADE : 130.78693633 
+        BASE BALANCE AFTER TRADE : 121.74693633  {"timestamp":"2023-06-07T10:56:55.039Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:56:55.041Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-EUR 
+                      QTY : 4.82
+                      PROVIDER PRICE : 28325.04
+                      COMPANY PRICE : 28339.20252 {"timestamp":"2023-06-07T10:56:55.263Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : -18916830.97 
+        QUOTE BALANCE AFTER TRADE : -19053425.93
+        BASE BALANCE BEFORE TRADE : 121.74693633 
+        BASE BALANCE AFTER TRADE : 126.56693633  {"timestamp":"2023-06-07T10:56:56.309Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:56:56.312Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : TRX-USD 
+                      QTY : 2168.32
+                      PROVIDER PRICE : 28557.10
+                      COMPANY PRICE : 28571.378549999998 {"timestamp":"2023-06-07T10:56:56.532Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1717946014.52 
+        QUOTE BALANCE AFTER TRADE : 1655994122.99
+        BASE BALANCE BEFORE TRADE : -21708.76 
+        BASE BALANCE AFTER TRADE : -19540.44  {"timestamp":"2023-06-07T10:56:57.592Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T10:56:57.594Z"}
+info: STARTING TRADE FLOW. MAKING 5 OTC TRADES {"timestamp":"2023-06-07T11:05:34.519Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : ADA-USD 
+                      QTY : 1872.46
+                      PROVIDER PRICE : 28435.55
+                      COMPANY PRICE : 28449.767774999997 {"timestamp":"2023-06-07T11:05:34.753Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1655994122.99 
+        QUOTE BALANCE AFTER TRADE : 1602723070.82
+        BASE BALANCE BEFORE TRADE : -15538.49 
+        BASE BALANCE AFTER TRADE : -13666.03  {"timestamp":"2023-06-07T11:05:35.823Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:05:35.827Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : BUSD-USD 
+                      QTY : 562.56
+                      PROVIDER PRICE : 27710.02
+                      COMPANY PRICE : 27723.87501 {"timestamp":"2023-06-07T11:05:36.050Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1602723070.82 
+        QUOTE BALANCE AFTER TRADE : 1587126727.69
+        BASE BALANCE BEFORE TRADE : 5259.04 
+        BASE BALANCE AFTER TRADE : 5821.6  {"timestamp":"2023-06-07T11:05:37.106Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:05:37.109Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : USDC-USD 
+                      QTY : 689.42
+                      PROVIDER PRICE : 27278.25
+                      COMPANY PRICE : 27291.889124999998 {"timestamp":"2023-06-07T11:05:37.330Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1587126727.69 
+        QUOTE BALANCE AFTER TRADE : 1568311153.49
+        BASE BALANCE BEFORE TRADE : 64108730.47701792 
+        BASE BALANCE AFTER TRADE : 64109419.89701792  {"timestamp":"2023-06-07T11:05:38.375Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:05:38.378Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : XLM-USD 
+                      QTY : 3783.59
+                      PROVIDER PRICE : 26852.70
+                      COMPANY PRICE : 26839.273650000003 {"timestamp":"2023-06-07T11:05:38.599Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1568311153.49 
+        QUOTE BALANCE AFTER TRADE : 1669859960.88
+        BASE BALANCE BEFORE TRADE : -29643.79 
+        BASE BALANCE AFTER TRADE : -33427.38  {"timestamp":"2023-06-07T11:05:39.655Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:05:39.659Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-GBP 
+                      QTY : 0.94
+                      PROVIDER PRICE : 27329.20
+                      COMPANY PRICE : 27315.5354 {"timestamp":"2023-06-07T11:05:39.881Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : -395262332.17 
+        QUOTE BALANCE AFTER TRADE : -395236655.57
+        BASE BALANCE BEFORE TRADE : 126.56693633 
+        BASE BALANCE AFTER TRADE : 125.62693633  {"timestamp":"2023-06-07T11:05:40.938Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:05:40.941Z"}
+info: STARTING TRADE FLOW. MAKING 5 OTC TRADES
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : TRX-USD 
+                      QTY : 1905.86
+                      PROVIDER PRICE : 27236.98
+                      COMPANY PRICE : 27250.598489999997
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1669859960.88 
+        QUOTE BALANCE AFTER TRADE : 1617924135.24
+        BASE BALANCE BEFORE TRADE : -19540.44 
+        BASE BALANCE AFTER TRADE : -17634.58 
+info: BALANCE IS CORRECT.
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : ADA-USD 
+                      QTY : 116.32
+                      PROVIDER PRICE : 26575.78
+                      COMPANY PRICE : 26589.06789
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1617924135.24 
+        QUOTE BALANCE AFTER TRADE : 1614831294.87
+        BASE BALANCE BEFORE TRADE : -13666.03 
+        BASE BALANCE AFTER TRADE : -13549.71 
+info: BALANCE IS CORRECT.
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : XLM-USD 
+                      QTY : 3569.28
+                      PROVIDER PRICE : 26975.10
+                      COMPANY PRICE : 26988.587549999997
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1614831294.87 
+        QUOTE BALANCE AFTER TRADE : 1518501469.1
+        BASE BALANCE BEFORE TRADE : -33427.38 
+        BASE BALANCE AFTER TRADE : -29858.1 
+info: BALANCE IS CORRECT.
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : ETH-EUR 
+                      QTY : 20.00
+                      PROVIDER PRICE : 28164.92
+                      COMPANY PRICE : 28150.83754
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : -19053425.93 
+        QUOTE BALANCE AFTER TRADE : -18490409.17
+        BASE BALANCE BEFORE TRADE : -266.2745 
+        BASE BALANCE AFTER TRADE : -286.2745 
+info: BALANCE IS CORRECT.
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : ADA-USD 
+                      QTY : 537.16
+                      PROVIDER PRICE : 28183.41
+                      COMPANY PRICE : 28169.318295
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1518501469.1 
+        QUOTE BALANCE AFTER TRADE : 1533632900.11
+        BASE BALANCE BEFORE TRADE : -13549.71 
+        BASE BALANCE AFTER TRADE : -14086.87 
+info: BALANCE IS CORRECT.
+info: STARTING TRADE FLOW. MAKING 5 OTC TRADES {"timestamp":"2023-06-07T11:08:45.180Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-USDC 
+                      QTY : 7.59
+                      PROVIDER PRICE : 28656.62
+                      COMPANY PRICE : 28670.948309999996 {"timestamp":"2023-06-07T11:08:45.413Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 64109419.89701792 
+        QUOTE BALANCE AFTER TRADE : 63891807.39934502
+        BASE BALANCE BEFORE TRADE : 125.62693633 
+        BASE BALANCE AFTER TRADE : 133.21693633  {"timestamp":"2023-06-07T11:08:46.472Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:08:46.476Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : ADA-USD 
+                      QTY : 1804.46
+                      PROVIDER PRICE : 27305.54
+                      COMPANY PRICE : 27291.887230000004 {"timestamp":"2023-06-07T11:08:46.697Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1533632900.11 
+        QUOTE BALANCE AFTER TRADE : 1582880018.94
+        BASE BALANCE BEFORE TRADE : -14086.87 
+        BASE BALANCE AFTER TRADE : -15891.33  {"timestamp":"2023-06-07T11:08:47.751Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:08:47.754Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : USDC-USD 
+                      QTY : 768.22
+                      PROVIDER PRICE : 28918.95
+                      COMPANY PRICE : 28933.409475 {"timestamp":"2023-06-07T11:08:47.976Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1582880018.94 
+        QUOTE BALANCE AFTER TRADE : 1560652795.12
+        BASE BALANCE BEFORE TRADE : 63891807.39934502 
+        BASE BALANCE AFTER TRADE : 63892575.61934502  {"timestamp":"2023-06-07T11:08:49.026Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:08:49.030Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-USD 
+                      QTY : 17.00
+                      PROVIDER PRICE : 28809.45
+                      COMPANY PRICE : 28795.045275000004 {"timestamp":"2023-06-07T11:08:49.250Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1560652795.12 
+        QUOTE BALANCE AFTER TRADE : 1561142310.89
+        BASE BALANCE BEFORE TRADE : 133.21693633 
+        BASE BALANCE AFTER TRADE : 116.21693633  {"timestamp":"2023-06-07T11:08:50.310Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:08:50.313Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-EUR 
+                      QTY : 5.94
+                      PROVIDER PRICE : 26485.58
+                      COMPANY PRICE : 26472.33721 {"timestamp":"2023-06-07T11:08:50.536Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : -18490409.17 
+        QUOTE BALANCE AFTER TRADE : -18333163.49
+        BASE BALANCE BEFORE TRADE : 116.21693633 
+        BASE BALANCE AFTER TRADE : 110.27693633  {"timestamp":"2023-06-07T11:08:51.593Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:08:51.597Z"}
+info: STARTING TRADE FLOW. MAKING 5 OTC TRADES {"timestamp":"2023-06-07T11:10:21.488Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : USDC-USD 
+                      QTY : 871.97
+                      PROVIDER PRICE : 27091.17
+                      COMPANY PRICE : 27077.624415 {"timestamp":"2023-06-07T11:10:21.738Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1561142310.89 
+        QUOTE BALANCE AFTER TRADE : 1584753187.05
+        BASE BALANCE BEFORE TRADE : 63892575.61934502 
+        BASE BALANCE AFTER TRADE : 63891703.64934502  {"timestamp":"2023-06-07T11:10:22.798Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:10:22.802Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-EUR 
+                      QTY : 3.96
+                      PROVIDER PRICE : 26756.00
+                      COMPANY PRICE : 26769.377999999997 {"timestamp":"2023-06-07T11:10:23.026Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : -18333163.49 
+        QUOTE BALANCE AFTER TRADE : -18439170.23
+        BASE BALANCE BEFORE TRADE : 110.27693633 
+        BASE BALANCE AFTER TRADE : 114.23693633  {"timestamp":"2023-06-07T11:10:24.104Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:10:24.107Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : BTC-USD 
+                      QTY : 9.21
+                      PROVIDER PRICE : 26971.60
+                      COMPANY PRICE : 26985.085799999997 {"timestamp":"2023-06-07T11:10:24.342Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1584753187.05 
+        QUOTE BALANCE AFTER TRADE : 1584504654.41
+        BASE BALANCE BEFORE TRADE : 114.23693633 
+        BASE BALANCE AFTER TRADE : 123.44693633  {"timestamp":"2023-06-07T11:10:25.406Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:10:25.409Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : SELL 
+                      COMPANY : TehillaINC
+                      PRODUCT : ADA-USD 
+                      QTY : 1742.39
+                      PROVIDER PRICE : 26560.10
+                      COMPANY PRICE : 26546.81995 {"timestamp":"2023-06-07T11:10:25.634Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1584504654.41 
+        QUOTE BALANCE AFTER TRADE : 1630759568.02
+        BASE BALANCE BEFORE TRADE : -15891.33 
+        BASE BALANCE AFTER TRADE : -17633.72  {"timestamp":"2023-06-07T11:10:26.696Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:10:26.700Z"}
+info: CREATING OTC TRADE. TRADE DATA :
+                      SIDE : BUY 
+                      COMPANY : TehillaINC
+                      PRODUCT : BUSD-USD 
+                      QTY : 494.27
+                      PROVIDER PRICE : 26375.09
+                      COMPANY PRICE : 26388.277544999997 {"timestamp":"2023-06-07T11:10:26.922Z"}
+info: COMPARING BALANCES - COMPANY SIDE.
+        QUOTE BALANCE BEFORE TRADE : 1630759568.02 
+        QUOTE BALANCE AFTER TRADE : 1617716634.08
+        BASE BALANCE BEFORE TRADE : 5821.6 
+        BASE BALANCE AFTER TRADE : 6315.87  {"timestamp":"2023-06-07T11:10:27.979Z"}
+info: BALANCE IS CORRECT. {"timestamp":"2023-06-07T11:10:27.983Z"}

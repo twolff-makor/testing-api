@@ -29,9 +29,9 @@ const logger = createLogger({
   ]
 });
 
-logger.info('This is an informational message.');
-logger.debug('This is a debug message.');
-logger.error('An error occurred:', new Error('Sample error'));
+// logger.info('This is an informational message.');
+// logger.debug('This is a debug message.');
+// logger.error('An error occurred:', new Error('Sample error'));
 
 
 module.exports = logger;

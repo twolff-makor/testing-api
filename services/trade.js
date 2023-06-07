@@ -38,16 +38,19 @@ function getIsoDate() {
 }
 
 function generateOtcParams() {
-        let side = getRandomItem(sides)
-        let counterparty = getRandomItem(counterparties)
-        let company = getRandomItem(companies)
+        let generateSide = getRandomItem(sides)
+        let generateCounterparty = getRandomItem(counterparties)
+        let generateCompany = getRandomItem(companies)
         let productsIndex = products[Math.floor(Math.random() * products.length)]
-        let qty = getRandomNumber(productsIndex.lowQty ,productsIndex.highQty, productsIndex.decimals)
-        let product = productsIndex.name
-        let providerPrice = getRandomNumber(productsIndex.lowPrice,productsIndex.highPrice, productsIndex.decimals)
-        let companyPrice = side === 'BUY' ? providerPrice * (1 + 5/ 10000) : providerPrice * (1 - 5/ 10000)
-        let date = getIsoDate();
-        let params = [counterparty, product, side, qty, providerPrice, date, company, companyPrice]
+        let generateQty = getRandomNumber(productsIndex.lowQty ,productsIndex.highQty, productsIndex.decimals)
+        let generateProduct = productsIndex.name
+        let generateProviderPrice = getRandomNumber(productsIndex.lowPrice,productsIndex.highPrice, productsIndex.decimals)
+        let generateCompanyPrice = generateSide === 'BUY' ? generateProviderPrice * (1 + 5/ 10000) : generateProviderPrice * (1 - 5/ 10000)
+        let generateDate = getIsoDate();
+        // let params = [counterparty, product, side, qty, providerPrice, date, company, companyPrice]
+          let params = {counterparty: generateCounterparty, product: generateProduct, side: generateSide, qty: generateQty, 
+                        providerPrice: generateProviderPrice, date: generateDate, company: generateCompany, companyPrice:generateCompanyPrice};
+
         return params;
     }
     

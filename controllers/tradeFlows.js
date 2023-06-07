@@ -8,7 +8,7 @@ const { createOtcTrade , generateOtcParams} = require('../services/trade');
 
 
 async function pause() {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 80));
 }
 
 async function tradeFlow(numOfOtc) {
@@ -29,7 +29,6 @@ async function tradeFlow(numOfOtc) {
         );
     
         let time = await pause();
-        let tine = await pause();
         
         const balanceAfterTrade = await getCompanyBalance();
     

@@ -4,9 +4,8 @@ const { getWsToken, getRestToken} = require('./services/auth');
 const { openWebSocket } = require('./services/websocket');
 const { createSettlement} = require('./services/settlement');
 const { tradeFlow , pause } = require('./controllers/tradeFlows');
-const { getCompanyBalance } = require('./services/balance');
 
-let numOfOtc = 10;
+let numOfOtc = 5;
 
 (async () => {
             let REST_TOKEN = await getRestToken();

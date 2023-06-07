@@ -21,7 +21,7 @@ const logger = createLogger({
     fileTransport, 
     new DailyRotateFile({
         filename: 'log_files/application-%DATE%.log',
-        datePattern: 'YYYY-MM-DDTHHmmss',
+        datePattern: 'YYYY-MM-DDTHHmm',
         maxSize: '10m', 
         maxFiles: 10 // Keep only the latest log file
       }),

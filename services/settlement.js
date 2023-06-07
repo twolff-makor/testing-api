@@ -43,21 +43,17 @@ async function getUnsettledTrades(numOfOtc) {
     }
   });
 
-  // if (tradesCollected == false) {
     return new Promise((resolve, reject) => {
       setMessageHandler(async (data) => {
-        const tradesNum = await handleNumOfTrades(data);
-        if (tradesNum == numOfOtc) {console.log(`Number of created OTC trades (${numOfOtc}) is equal to number of trades collected for settlement (${tradesNum})`)}
+       
         const tradeCollections = await handleUnsettledTrades(data);
         resolve(tradeCollections);
       });
       sendWebSocketMessage(dataToSend);
     });
-  // }
 }
 
-async function createSettlement(numOfOtc) {
-  const collectedTrades = await getUnsettledTrades(numOfOtc);
+async function createSettlement(collectedTrades) {
   const dataToSend = JSON.stringify({
     "type": "create_settlement",
     "data": {
@@ -66,15 +62,15 @@ async function createSettlement(numOfOtc) {
     }
   });
 
-  // if (createdSettlement == false) {
     return new Promise((resolve, reject) => {
       setMessageHandler(console.log);
       sendWebSocketMessage(dataToSend);
-      // createdSettlement = true;
     });
-  // }
+
 }
 
 module.exports = {
-  createSettlement
+  createSettlement,
+  getUnsettledTrades, 
+  handleNumOfTrades,
 };

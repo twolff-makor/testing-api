@@ -8,13 +8,11 @@ const logger = require('../services/winston');
 // let createdAllTrades = false; 
 
 async function pause() {
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 }
 
 async function tradeFlow(numOfOtc) {
   let qtySum = 0;
-  let baseDeltaSum = 0;
-  let quoteDeltaSum = 0;
   let quoteAmountSum = 0;
   logger.info(`STARTING TRADE FLOW. MAKING ${numOfOtc} OTC TRADES`);
       for (let i = 0; i < numOfOtc; i++) {
@@ -22,7 +20,7 @@ async function tradeFlow(numOfOtc) {
         const otcParams = generateOtcParams();
         const [base, quote] = otcParams.product.split("-");
 
-        logger.info(`CREATING OTC TRADE. TRADE DATA :
+        logger.info(`CREATING OTC TRADE NUM ${i+1}. TRADE DATA :
                       SIDE : ${otcParams.side} 
                       COMPANY : TehillaINC
                       PRODUCT : ${otcParams.product} 
@@ -56,8 +54,8 @@ async function tradeFlow(numOfOtc) {
         
         
         let qty = (new BigNumber(otcParams.qty))
-        let baseDelta = (new BigNumber(baseAfterTrade.minus(baseBeforeTrade)))
-        let quoteDelta = (new BigNumber(quoteBeforeTrade.minus(quoteAfterTrade)))
+        let baseDelta = (new BigNumber(baseBeforeTrade.minus(baseAfterTrade)))
+        let quoteDelta = (new BigNumber(quoteAfterTrade.minus(quoteBeforeTrade)))
         let quoteAmount = (new BigNumber(qty.multipliedBy(companyPrice)))
         
         
@@ -72,11 +70,13 @@ async function tradeFlow(numOfOtc) {
         quoteDelta = quoteDelta.integerValue()
         quoteAmount = quoteAmount.integerValue()
         
-        qtySum += qty.toNumber();
-        console.log(qtySum);
-        
         if (side == "BUY") {
             if (baseDelta.isEqualTo(qty) && quoteDelta.isEqualTo(quoteAmount)) {
+              qtySum += qty.toNumber();
+              console.log(`qty : ${qty} quote :${quoteAmount}===================================`);
+
+              quoteAmountSum += quoteAmount.toNumber();
+              // console.log(`qty : ${qty} quote :${quoteAmount}===================================`);
               logger.info(`BALANCE IS CORRECT.`);
             } else {
               logger.info(`BALANCE IS INCORRECT. QTY: ${qty}, BASE DELTA: ${baseDelta}, QUOTE DELTA: ${quoteDelta}, QUOTE QTY: ${quoteAmount}`);
@@ -84,6 +84,10 @@ async function tradeFlow(numOfOtc) {
         } else if (side == "SELL") {
             qty = qty.multipliedBy(-1)
             quoteAmount = quoteAmount.multipliedBy(-1)
+            console.log(qty)
+            qtySum += qty.toNumber();
+            quoteAmountSum += quoteAmount.toNumber();
+            console.log(`qty : ${qty} quote :${quoteAmount}!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!`);
             if (baseDelta.isEqualTo(qty) && quoteDelta.isEqualTo(quoteAmount)) {
               logger.info(`BALANCE IS CORRECT.`);
            } else {
@@ -91,7 +95,7 @@ async function tradeFlow(numOfOtc) {
            }
         }
       }
-
+      logger.info(`FINISHED TRADE FLOW. MADE ${numOfOtc} OTC TRADES`);
     }
     
     
@@ -99,7 +103,5 @@ module.exports = {
     tradeFlow,
     pause,
     // qtySum, 
-    // baseDeltaSum,
-    // quoteDeltaSum,
     // quoteAmountSum,
   };

@@ -11,7 +11,7 @@ async function settlementFlow(numOfOtc) {
 
           const tradesNum = await handleNumOfTrades(unsettledTrades);
           if (tradesNum == numOfOtc) {
-            logger.info(`COLLECTED CORRECT AMMOUNT OF TRADES FOR SETTLEMENT:
+            logger.info(`COLLECTED CORRECT AMOUNT OF TRADES FOR SETTLEMENT:
             NUMBER OF TRADES MADE : (${numOfOtc}) 
             NUMBER OF TRADES COLLECTED : (${tradesNum})`)}
 

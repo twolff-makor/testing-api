@@ -1,3 +1,5 @@
 .env
+
 *.log
-/log_files
+log_files
+logs

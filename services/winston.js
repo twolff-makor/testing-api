@@ -13,7 +13,7 @@ const logger = createLogger({
       debug: 3
     },
     format: format.combine(
-      format.timestamp(),
+      // format.timestamp(),
       format.simple()
     ),
   transports: [

@@ -20,6 +20,14 @@ const products = [{name: 'BTC-USD', lowPrice: 26000, highPrice: 29000, lowQty: 0
 const sides = ['BUY','SELL']
 const companies = ['62b08b48-aaa7-11ed-a122-0a45617894ef']
 
+
+function handleTradeMessage(message) {
+  if (message.code = 200 && message.content) {
+    const tradeId = message.id 
+    return (`NEW TRADE CREATED, TRADE GROUP ID ${tradeId}`)
+  } else {}
+}
+
 function getRandomItem(array) {
     let item = array[Math.floor(Math.random() * array.length)]
     return item;
@@ -89,7 +97,8 @@ function generateOtcParams() {
       
         return new Promise((resolve, reject) => {
           sendWebSocketMessage(dataToSend);
-          setMessageHandler(resolve);
+          response = setMessageHandler(handleTradeMessage);
+          resolve(response);
         });
       }
       

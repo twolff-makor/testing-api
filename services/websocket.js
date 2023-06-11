@@ -25,14 +25,17 @@ function openWebSocket(url) {
 }
 
 function setMessageHandler(onMessage) {
+  return new Promise((resolve, reject) => {
   const messageListener = (data) => {
     data = JSON.parse(data.toString('utf8'));
-    onMessage(data);
+    let messageHandled = onMessage(data);
     ws.removeListener('message', messageListener);
+    resolve(messageHandled)
   };
   if (ws) {
     ws.on('message', messageListener);
   }
+});
 }
 
 

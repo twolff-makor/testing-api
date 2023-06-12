@@ -1,7 +1,7 @@
 require('dotenv').config();
 const winston = require('winston');
 const { sendWebSocketMessage, setMessageHandler } = require('./websocket');
-// const BigNumber = require('bignumber.js');
+const BigNumber = require('bignumber.js');
 
 function handleSettlementMessage(message) {
   if (message.code = 200 && message.content) {
@@ -10,33 +10,23 @@ function handleSettlementMessage(message) {
   } else {}
 }
 
-// async function getTradeSum() {
-//   const data = await getUnsettledTrades();
-//   const unsettledTrades = data.content.unsettled_trades
-//   const sumLegsByCurrency = {};
-//   // return new Promise((resolve, reject) => {
-//     const sumOfTrades = unsettledTrades.map((item) => {
-//       const [base, quote] = item.product?.split('-');
-// 			const baseAmount = new BigNumber(item.legs[base].amount).integerValue();
-// 			const quoteAmount = new BigNumber(item.legs[quote].amount)
+async function getTradeSum(data) {
+  const unsettledTrades = data.content.unsettled_trades;
+  return new Promise((resolve, reject) => {
+    let baseSum = 0;
+    let quoteSum = 0;
+    for (const trade of unsettledTrades) {
+      const [base, quote] = trade.product?.split('-');
+      baseAmount =+ (new BigNumber(trade.legs[base].amount)).integerValue();
+      quoteAmount =+ (new BigNumber(trade.legs[quote].amount)).integerValue();
+      baseSum += baseAmount;
+      quoteSum += quoteAmount;
+    }
+    const tradeSums = { base: baseSum, quote: quoteSum };
+    resolve(tradeSums);
+  });
+}
 
-// 			sumLegsByCurrency[base] = new BigNumber((sumLegsByCurrency[base] ?? 0).toString()).plus(baseAmount.toString())
-// 			sumLegsByCurrency[quote] = new BigNumber((sumLegsByCurrency[quote] ?? 0).toString()).plus(quoteAmount.toString())
-
-//         // });
-
-
-//       // const trades = data.content?.unsettled_trades || '';
-//       // let tradesNum = 0;
-//       // for (const trade of trades) {
-//       //   console.log(tradesNum);
-//       // tradesNum += trade.trades;
-      
-//       // }
-//       // resolve(sumOfTrades);
-//     });
-//     return sumLegsByCurrency;
-// }
 
 async function handleNumOfTrades(data) {
   return new Promise((resolve, reject) => {
@@ -91,7 +81,7 @@ module.exports = {
   handleUnsettledTrades, 
   handleNumOfTrades,
   getUnsettledTrades,
-  // getTradeSum
+  getTradeSum
 };
 
 

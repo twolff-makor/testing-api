@@ -21,29 +21,38 @@ async function settlementFlow(numOfOtc) {
       NUMBER OF TRADES MADE : (${numOfOtc}) 
       NUMBER OF TRADES COLLECTED : (${tradesNum})`)};
     
-  // let tradeSum = updateSums();
-  // tradeSum = JSON.stringify(tradeSum)
+  let tradeSum = updateSums();
+  let settlementSum = await getTradeSum(unsettledTrades);
+  // tradeSum = JSON.stringify(tradeSum);
+  // tradeSum = JSON.stringify(settlementSum);
 
-  /// GET TRADE SUM, CROSSREFERANCE WITH UPDATESUMS() --------------need to add settlement sum calc
-  // let settlementSum = await getTradeSum();
-  // console.log(loh);
+  if (tradeSum.base == settlementSum.base && tradeSum.quote == settlementSum.quote ){
+    logger.info(`SETTLEMENT TOTAL AMOUNT IS CORRECT`);  
+  } else {
+    logger.info(`SETTLEMENT TOTAL AMOUNT IS INCORRECT :
+          TRADE SUM = ${JSON.stringify(tradeSum)}
+          SETTLEMENT COLLECTION SUM = ${JSON.stringify(settlementSum)} `);   }
 
-
-  // logger.info(`SUM OF TRADE AMOUNT IS CORRECT. DATA :
-  //               TRADE SUM = ${tradeSum}
-  //               SETTLEMENT COLLECTION SUM = `);
-  
   const tradesToSettle = await handleUnsettledTrades(unsettledTrades);
   let settMessage = await createSettlement(tradesToSettle);
   logger.info(`${settMessage}`);
   
-  const unsettledTradesSettled = await getUnsettledTrades();
-  const tradesToSettleSettled = await handleUnsettledTrades(unsettledTradesSettled);
-  logger.info(`ALL TRADES ARE SETTLED: 
-                UNSETTLED TRADES = ${tradesToSettleSettled}`);
-    
-   
-  logger.info(`FINISHED SETTLEMENT FLOW.`);
+  const unsettledTradesAfterSettlement = await getUnsettledTrades();
+  const tradesToSettleAfterSettlement = await handleUnsettledTrades(unsettledTradesAfterSettlement);
+
+  try {
+    tradesToSettleAfterSettlement == 0
+    logger.info(`ALL TRADES ARE SETTLED`);
+  } catch (error) {
+    logger.error(`NOT ALL TRADES ARE SETTLED`);
+  }
+  
+
+  // if (tradesToSettleAfterSettlement == 0 ) {
+  //   logger.info(`ALL TRADES ARE SETTLED`);
+  // } 
+  
+  logger.info(`FINISHED SETTLEMENT FLOW`);
   }
 
 

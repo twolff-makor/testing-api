@@ -4,8 +4,8 @@ const { getCompanyBalance } = require('../services/balance');
 const { createOtcTrade , generateOtcParams} = require('../services/trade');
 const logger = require('../services/winston');
 
-let qtySums = 0;
-let quoteAmountSums = 0 ;
+let baseAmountSum = 0;
+let quoteAmountSum = 0 ;
 
 async function pause() {
     await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -53,10 +53,10 @@ async function tradeFlow(numOfOtc) {
         let quoteBeforeTrade = new BigNumber(balanceBeforeTrade[quote].amount)
         
         
-        let qty = (new BigNumber(otcParams.qty))
+        let baseAmount = (new BigNumber(otcParams.qty))
         let baseDelta = (new BigNumber(baseAfterTrade.minus(baseBeforeTrade)))
         let quoteDelta = (new BigNumber(quoteBeforeTrade.minus(quoteAfterTrade)))
-        let quoteAmount = (new BigNumber(qty.multipliedBy(companyPrice)))
+        let quoteAmount = (new BigNumber(baseAmount.multipliedBy(companyPrice)))
         
         
         logger.info(`COMPARING BALANCES - COMPANY SIDE.
@@ -65,36 +65,45 @@ async function tradeFlow(numOfOtc) {
         BASE BALANCE BEFORE TRADE : ${baseBeforeTrade} 
         BASE BALANCE AFTER TRADE : ${baseAfterTrade} `);
         
-        qty = qty.integerValue()
+        baseAmount = baseAmount.integerValue()
         baseDelta = baseDelta.integerValue()
         quoteDelta = quoteDelta.integerValue()
         quoteAmount = quoteAmount.integerValue()
         
         if (side == "BUY") {
-            if (baseDelta.isEqualTo(qty) && quoteDelta.isEqualTo(quoteAmount)) {
-              qtySums += qty.toNumber();
-              quoteAmountSums += quoteAmount.toNumber();
-              logger.info(`BALANCE IS CORRECT.`);
+            if (baseDelta.isEqualTo(baseAmount) && quoteDelta.isEqualTo(quoteAmount)) {
+              baseAmountSum += baseAmount.toNumber();
+              quoteAmountSum += quoteAmount.toNumber();
+              logger.info(`BALANCE IS CORRECT`);
             } else {
-              logger.info(`BALANCE IS INCORRECT. QTY: ${qty}, BASE DELTA: ${baseDelta}, QUOTE DELTA: ${quoteDelta}, QUOTE QTY: ${quoteAmount}`);
+              logger.info(`BALANCE IS INCORRECT 
+              BASE AMOUNT: ${baseAmount}, 
+              BASE DELTA: ${baseDelta}, 
+              QUOTE AMOUNT: ${quoteAmount},
+              QUOTE DELTA: ${quoteDelta}`);
             }
           } else if (side == "SELL") {
-            qty = qty.multipliedBy(-1)
+            baseAmount = baseAmount.multipliedBy(-1)
             quoteAmount = quoteAmount.multipliedBy(-1)
-            qtySums += qty.toNumber();
-            quoteAmountSums += quoteAmount.toNumber();
-            if (baseDelta.isEqualTo(qty) && quoteDelta.isEqualTo(quoteAmount)) {
-              logger.info(`BALANCE IS CORRECT.`);
+            baseAmountSum += baseAmount.toNumber();
+            quoteAmountSum += quoteAmount.toNumber();
+            if (baseDelta.isEqualTo(baseAmount) && quoteDelta.isEqualTo(quoteAmount)) {
+              logger.info(`BALANCE IS CORRECT`);
             } else {
-            logger.info(`BALANCE IS INCORRECT. QTY: ${qty}, BASE DELTA: ${baseDelta}, QUOTE DELTA: ${quoteDelta}, QUOTE QTY: ${quoteAmount}`);
-           }
+              logger.info(`BALANCE IS INCORRECT
+              BASE AMOUNT: ${baseAmount}, 
+              BASE DELTA: ${baseDelta}, 
+              QUOTE AMOUNT: ${quoteAmount},
+              QUOTE DELTA: ${quoteDelta}`);
+            }
         }
       }
       logger.info(`FINISHED TRADE FLOW. MADE ${numOfOtc} OTC TRADES`);
     }
 
     function updateSums() {
-      const sums = {qtySum : qtySums, quoteAmountSum : quoteAmountSums}
+      quoteAmountSum = (quoteAmountSum * -1)
+      const sums = {base : baseAmountSum, quote : quoteAmountSum}
       return sums;
     }
     

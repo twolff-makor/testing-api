@@ -2,8 +2,8 @@ require('dotenv').config();
 const winston = require('winston');
 const { getWsToken, getRestToken} = require('./services/auth');
 const { openWebSocket } = require('./services/websocket');
-const { settlementFlow} = require('./controllers/settlementFlow');
-const { tradeFlow , pause } = require('./controllers/tradeFlow');
+const { settlementFlow } = require('./controllers/settlementFlow');
+const { tradeFlow } = require('./controllers/tradeFlow');
 
 let numOfOtc = 2;
 
@@ -16,13 +16,10 @@ let numOfOtc = 2;
               (async () => {
                      let trade = await tradeFlow(numOfOtc);
                      let settlement = await settlementFlow(numOfOtc)
-                     // let coco = await pause();
-                     // getCompanyBalance()
-                     // createSettlement();
-
+         
               })();
             }
       
                    })();
-            
+           
             

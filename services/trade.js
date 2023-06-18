@@ -178,6 +178,7 @@ async function createOtcTrade(
 	companyPrice,
 	createdAllTrades
 ) {
+	return new Promise((resolve, reject) => {
 	const dataToSend = JSON.stringify({
 		group: 'otc',
 		type: 'report_trade_otc',
@@ -210,8 +211,6 @@ async function createOtcTrade(
 			otc_type: 'PAIRED',
 		},
 	});
-
-	return new Promise((resolve, reject) => {
 		sendWebSocketMessage(dataToSend);
 		response = setMessageHandler(handleTradeMessage, `report_trade_otc`);
 		resolve(response);

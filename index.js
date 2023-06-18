@@ -3,9 +3,9 @@ const winston = require('winston');
 const { getWsToken, getRestToken} = require('./services/auth');
 const { openWebSocket } = require('./services/websocket');
 const { settlementFlow } = require('./controllers/settlementFlow');
-const { tradeFlow } = require('./controllers/tradeFlow');
+const { tradeFlow, pause } = require('./controllers/tradeFlow');
 
-let numOfOtc = 2;
+let numOfOtc = 100;
 
 (async () => {
             let REST_TOKEN = await getRestToken();

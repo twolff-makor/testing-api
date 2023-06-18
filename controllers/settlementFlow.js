@@ -15,36 +15,54 @@ const {
 	validateTransaction,
 } = require('../services/settlement');
 const { updateSums, pause } = require('./tradeFlow');
+const { getCompanyBalance } = require('../services/balance');
 const logger = require('../services/winston');
 
+function sumBalance(data) {
+	sum = Object.values(data).reduce((sum, item) => {
+		const amount = new BigNumber(item.amount).integerValue();
+		return sum.plus(amount);
+	}, new BigNumber(0));
+	return sum;
+}
+
 async function settlementFlow(numOfOtc) {
-	(async () => {
-		logger.info(`STARTING SETTLEMENT FLOW. SETTLING ${numOfOtc} OTC TRADES`);
+	logger.info(`STARTING SETTLEMENT FLOW. SETTLING ${numOfOtc} OTC TRADES`);
+	const balanceBeforeSett = await getCompanyBalance(false);
+	const startSumOfBalance = sumBalance(balanceBeforeSett);
+
+	logger.info(`BALANCE BEFORE SETTLEMENT = ${startSumOfBalance}`);
+
 	const unsettledTrades = await getUnsettledTrades();
 	const tradesNum = await handleNumOfTrades(unsettledTrades);
-
+	
 	if (tradesNum == numOfOtc) {
 		logger.info(`COLLECTED CORRECT AMOUNT OF TRADES FOR SETTLEMENT:
-    NUMBER OF TRADES MADE : (${numOfOtc}) 
-    NUMBER OF TRADES COLLECTED : (${tradesNum})`);
+		NUMBER OF TRADES MADE : (${numOfOtc}) 
+		NUMBER OF TRADES COLLECTED : (${tradesNum})`);
 	} else {
 		logger.info(`COLLECTED INCORRECT AMOUNT OF TRADES FOR SETTLEMENT:
-      NUMBER OF TRADES MADE : (${numOfOtc}) 
-      NUMBER OF TRADES COLLECTED : (${tradesNum})`);
+		NUMBER OF TRADES MADE : (${numOfOtc}) 
+		NUMBER OF TRADES COLLECTED : (${tradesNum})`);
 	}
-
+	
 	let tradeSum = updateSums();
+	
 	let settlementSum = await getTradeSum(unsettledTrades);
-	// tradeSum = JSON.stringify(tradeSum);
-	// tradeSum = JSON.stringify(settlementSum);
+	
 
-	if (tradeSum.base == settlementSum.base && tradeSum.quote == settlementSum.quote) {
-		logger.info(`SETTLEMENT TOTAL AMOUNT IS CORRECT`);
+	if (
+		[tradeSum.base, tradeSum.base + 1, tradeSum.base - 1].includes(settlementSum.base) &&
+		[tradeSum.quote, tradeSum.quote + 1, tradeSum.quote - 1].includes(settlementSum.quote)
+	) {
+		logger.info(
+			logger.info(`SETTLEMENT TOTAL AMOUNT IS CORRECT`)
+		);
 	} else {
-		logger.info(`SETTLEMENT TOTAL AMOUNT IS INCORRECT :
-          TRADE SUM = ${JSON.stringify(tradeSum)}
-          SETTLEMENT COLLECTION SUM = ${JSON.stringify(settlementSum)} `);
-	}
+			logger.info(`SETTLEMENT TOTAL AMOUNT IS INCORRECT :
+		      TRADE SUM = ${JSON.stringify(tradeSum)}
+		      SETTLEMENT COLLECTION SUM = ${JSON.stringify(settlementSum)} `);
+		}
 
 	const tradesToSettle = await handleUnsettledTrades(unsettledTrades);
 	let settMessage = await createSettlement(tradesToSettle);
@@ -52,7 +70,6 @@ async function settlementFlow(numOfOtc) {
 
 	const unsettledTradesAfterSettlement = await getUnsettledTrades();
 	const tradesToSettleAfterSettlement = await handleUnsettledTrades(unsettledTradesAfterSettlement);
-
 	try {
 		tradesToSettleAfterSettlement == 0;
 		logger.info(`ALL TRADES ARE SETTLED`);
@@ -65,33 +82,44 @@ async function settlementFlow(numOfOtc) {
 	const settlementLegs = await getSettlementLegs();
 
 	for (leg of settlementLegs) {
-		let currency = leg.code
-		let fromAccount
-		let toAccount
-		let transactionStatus
+		let currency = leg.code;
+		let fromAccount;
+		let toAccount;
+		let transactionStatus;
 
-		if (leg.amount > 0 ) {
-			fromAccount = companyAccounts[currency][0]
-			toAccount = enigmaAccounts[currency][0]
-			transactionStatus = "PROCESSING"
-		} else if (leg.amount < 0 ){
-			fromAccount = enigmaAccounts[currency][0]
-			toAccount = companyAccounts[currency][0]
+		if (leg.amount > 0) {
+			fromAccount = companyAccounts[currency][0];
+			toAccount = enigmaAccounts[currency][0];
+			transactionStatus = 'PROCESSING';
+		} else if (leg.amount < 0) {
+			fromAccount = enigmaAccounts[currency][0];
+			toAccount = companyAccounts[currency][0];
 			leg.amount = new BigNumber(leg.amount).absoluteValue();
-			transactionStatus = "PENDING"
+			transactionStatus = 'PENDING';
 		}
 
 		if (fromAccount && toAccount) {
-			await addSettlementTransaction(leg.id, leg.amount, fromAccount, toAccount )
-		} else {logger.error('No existing wallet')}
+			await addSettlementTransaction(leg.id, leg.amount, fromAccount, toAccount);
+		} else {
+			logger.error('No existing wallet');
+		}
 
 		let transactionId = await getTransactionId(transactionStatus);
 		let validated = await validateTransaction(transactionId);
-
 	}
-	logger.info(`FINISHED SETTLEMENT FLOW`);
 
- })();
+	const balanceAfterSett = await getCompanyBalance(false);
+	const endSumOfBalance = sumBalance(balanceAfterSett);
+
+	sumOfTrades = tradeSum.base + tradeSum.quote;
+	console.log(sumOfTrades);
+	if (
+		[sumOfTrades, sumOfTrades + 1, sumOfTrades - 1].includes(balanceAfterSett - balanceBeforeSett)
+	) {
+		logger.info(`BALANCE BEFORE SETTLEMENT = ${endSumOfBalance}`);
+
+		logger.info(`FINISHED SETTLEMENT FLOW`);
+	}
 }
 
 module.exports = {

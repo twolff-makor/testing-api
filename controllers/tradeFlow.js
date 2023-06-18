@@ -8,13 +8,13 @@ let baseAmountSum = 0;
 let quoteAmountSum = 0;
 
 async function pause() {
-	await new Promise((resolve) => setTimeout(resolve, 2000));
+	await new Promise((resolve) => setTimeout(resolve, 700));
 }
 
 async function tradeFlow(numOfOtc) {
 	logger.info(`STARTING TRADE FLOW. MAKING ${numOfOtc} OTC TRADES`);
 	for (let i = 0; i < numOfOtc; i++) {
-		const balanceBeforeTrade = await getCompanyBalance();
+		const balanceBeforeTrade = await getCompanyBalance(true);
 		const otcParams = generateOtcParams();
 		const [base, quote] = otcParams.product.split('-');
 
@@ -39,9 +39,9 @@ async function tradeFlow(numOfOtc) {
 
 		logger.info(tradeMessage);
 
-		let time = await pause();
+		// let time = await pause();
 
-		const balanceAfterTrade = await getCompanyBalance();
+		const balanceAfterTrade = await getCompanyBalance(true);
 
 		BigNumber.set({ DECIMAL_PLACES: 0 });
 

@@ -63,10 +63,10 @@ async function tradeFlow(numOfOtc) {
         BASE BALANCE BEFORE TRADE : ${baseBeforeTrade} 
         BASE BALANCE AFTER TRADE : ${baseAfterTrade} `);
 
-		baseAmount = baseAmount.integerValue();
-		baseDelta = baseDelta.integerValue();
-		quoteDelta = quoteDelta.integerValue();
-		quoteAmount = quoteAmount.integerValue();
+		baseAmount = baseAmount.integerValue(2);
+		baseDelta = baseDelta.integerValue(2);
+		quoteDelta = quoteDelta.integerValue(2);
+		quoteAmount = quoteAmount.integerValue(2);
 
 		if (side == 'BUY') {
 			if (baseDelta.isEqualTo(baseAmount) && quoteDelta.isEqualTo(quoteAmount)) {
@@ -100,7 +100,8 @@ async function tradeFlow(numOfOtc) {
 }
 
 function updateSums() {
-	quoteAmountSum = quoteAmountSum.multipliedBy(-1).toInteger();
+	quoteAmountSum = quoteAmountSum.multipliedBy(-1).integerValue(2);
+	quoteAmountSum = quoteAmountSum.integerValue(2);
 	const sums = {
 		base: baseAmountSum,
 		quote: quoteAmountSum,

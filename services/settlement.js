@@ -17,14 +17,14 @@ const currentDate = getFormattedDate();
 async function getTradeSum(data) {
 	const unsettledTrades = data.content.unsettled_trades;
 	return new Promise((resolve, reject) => {
-		let baseSum = 0;
-		let quoteSum = 0;
+		let baseSum = new BigNumber(0);
+		let quoteSum = new BigNumber(0);
 		for (const trade of unsettledTrades) {
 			const [base, quote] = trade.product?.split('-');
-			baseAmount = +new BigNumber(trade.legs[base].amount).integerValue();
-			quoteAmount = +new BigNumber(trade.legs[quote].amount).integerValue();
-			baseSum += baseAmount;
-			quoteSum += quoteAmount;
+			baseAmount = new BigNumber(trade.legs[base].amount);
+			quoteAmount = new BigNumber(trade.legs[quote].amount);
+			baseSum = baseSum.plus(baseAmount);
+			quoteSum = baseSum.plus(quoteAmount);
 		}
 		const tradeSums = { base: baseSum, quote: quoteSum };
 		resolve(tradeSums);

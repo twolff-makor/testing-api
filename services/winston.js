@@ -3,7 +3,7 @@ const DailyRotateFile = require('winston-daily-rotate-file');
 const { combine, timestamp, simple } = format;
 const consoleTransport = new transports.Console();
 const fileTransport = new transports.File({
-	filename: 'log_files.log',
+	filename: '.log_files/log',
 });
 
 const logger = createLogger({

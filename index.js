@@ -5,7 +5,8 @@ const { openWebSocket } = require('./services/websocket');
 const { settlementFlow } = require('./controllers/settlementFlow');
 const { tradeFlow, pause } = require('./controllers/tradeFlow');
 
-let numOfOtc = 100;
+// enter a number between 1 and 50 (can handle more but will take a while to run)
+let numOfOtc = 50;
 
 (async () => {
             let REST_TOKEN = await getRestToken();

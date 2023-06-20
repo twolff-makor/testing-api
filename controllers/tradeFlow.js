@@ -4,8 +4,8 @@ const { getCompanyBalance } = require('../services/balance');
 const { createOtcTrade, generateOtcParams } = require('../services/trade');
 const logger = require('../services/winston');
 
-let baseAmountSum = 0;
-let quoteAmountSum = 0;
+let baseAmountSum = new BigNumber(0);
+let quoteAmountSum = new BigNumber(0);
 
 async function pause() {
 	await new Promise((resolve) => setTimeout(resolve, 700));
@@ -70,8 +70,8 @@ async function tradeFlow(numOfOtc) {
 
 		if (side == 'BUY') {
 			if (baseDelta.isEqualTo(baseAmount) && quoteDelta.isEqualTo(quoteAmount)) {
-				baseAmountSum += baseAmount.toNumber();
-				quoteAmountSum += quoteAmount.toNumber();
+				baseAmountSum = baseAmountSum.plus(baseAmount.toNumber());
+				quoteAmountSum = quoteAmountSum.plus(quoteAmount.toNumber());
 				logger.info(`BALANCE IS CORRECT`);
 			} else {
 				logger.info(`BALANCE IS INCORRECT 
@@ -83,8 +83,8 @@ async function tradeFlow(numOfOtc) {
 		} else if (side == 'SELL') {
 			baseAmount = baseAmount.multipliedBy(-1);
 			quoteAmount = quoteAmount.multipliedBy(-1);
-			baseAmountSum += baseAmount.toNumber();
-			quoteAmountSum += quoteAmount.toNumber();
+			baseAmountSum = baseAmountSum.plus(baseAmount.toNumber());
+			quoteAmountSum = quoteAmountSum.plus(quoteAmount.toNumber());
 			if (baseDelta.isEqualTo(baseAmount) && quoteDelta.isEqualTo(quoteAmount)) {
 				logger.info(`BALANCE IS CORRECT`);
 			} else {
@@ -100,7 +100,7 @@ async function tradeFlow(numOfOtc) {
 }
 
 function updateSums() {
-	quoteAmountSum = quoteAmountSum * -1;
+	quoteAmountSum = quoteAmountSum.multipliedBy(-1).toInteger();
 	const sums = {
 		base: baseAmountSum,
 		quote: quoteAmountSum,

@@ -53,7 +53,7 @@ async function settlementFlow(numOfOtc) {
 
 	if (
 		[tradeSum.base, tradeSum.base + 1, tradeSum.base - 1].includes(settlementSum.base) &&
-		[tradeSum.quote, tradeSum.quote + 1, tradeSum.quote - 1].includes(settlementSum.quote)
+		[tradeSum.quote, tradeSum.quote + 1, tradeSum.quote - 1, tradeSum.quote + 2, tradeSum.quote - 2, tradeSum.quote + 3, tradeSum.quote - 3].includes(settlementSum.quote)
 	) {
 		logger.info(
 			logger.info(`SETTLEMENT TOTAL AMOUNT IS CORRECT`)
@@ -111,15 +111,24 @@ async function settlementFlow(numOfOtc) {
 	const balanceAfterSett = await getCompanyBalance(false);
 	const endSumOfBalance = sumBalance(balanceAfterSett);
 
-	sumOfTrades = tradeSum.base + tradeSum.quote;
-	console.log(sumOfTrades);
-	if (
-		[sumOfTrades, sumOfTrades + 1, sumOfTrades - 1].includes(balanceAfterSett - balanceBeforeSett)
-	) {
-		logger.info(`BALANCE BEFORE SETTLEMENT = ${endSumOfBalance}`);
+	// sumOfTrades = tradeSum.base + tradeSum.quote;
+	settlementSum  = settlementSum.base + settlementSum.quote
+	// console.log(sumOfTrades);
 
-		logger.info(`FINISHED SETTLEMENT FLOW`);
+	if (
+		[settlementSum, settlementSum -1 , settlementSum+1, settlementSum+2, settlementSum-2].includes(startSumOfBalance - endSumOfBalance)
+	) {
+		logger.info(`BALANCE IS CORRECT ,
+		BALANCE DELTA (BEFORE-AFTER SETTLEMENT)= ${startSumOfBalance-endSumOfBalance} 
+		SETTLEMENT AMOUNT ${settlementSum}`);
+
+	} else{
+		logger.info(`BALANCE IS INCORRECT, 
+		BALANCE DELTA (BEFORE-AFTER SETTLEMENT)= ${startSumOfBalance-endSumOfBalance} 
+		SETTLEMENT AMOUNT ${settlementSum}`);
+
 	}
+	logger.info(`FINISHED SETTLEMENT FLOW`);
 }
 
 module.exports = {

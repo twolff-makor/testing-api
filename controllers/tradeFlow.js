@@ -100,7 +100,7 @@ async function tradeFlow(numOfOtc) {
 }
 
 function updateSums() {
-	quoteAmountSum = quoteAmountSum.multipliedBy(-1).toInteger();
+	quoteAmountSum = quoteAmountSum.multipliedBy(-1).integerValue();
 	const sums = {
 		base: baseAmountSum,
 		quote: quoteAmountSum,

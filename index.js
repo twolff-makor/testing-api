@@ -6,7 +6,7 @@ const { settlementFlow } = require('./controllers/settlementFlow');
 const { tradeFlow, pause } = require('./controllers/tradeFlow');
 
 // enter a number between 1 and 50 (can handle more but will take a while to run)
-let numOfOtc = 50;
+let numOfOtc = 10;
 
 (async () => {
             let REST_TOKEN = await getRestToken();

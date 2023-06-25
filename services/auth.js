@@ -10,11 +10,12 @@ async function getRestToken() {
 				password: process.env.UAT_PASSWORD,
 			})
 			.then((response) => {
-				const REST_TOKEN = JSON.stringify(response.data.token);
+				let REST_TOKEN = JSON.stringify(response.data.token);
+				REST_TOKEN = REST_TOKEN.slice(1, -1);
 				resolve(REST_TOKEN);
 			})
 			.catch((error) => {
-				logger.error(error);
+				// logger.error(error);
 				reject(error);
 			});
 	});

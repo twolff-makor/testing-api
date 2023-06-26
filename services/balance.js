@@ -1,6 +1,8 @@
 require('dotenv').config();
 const { sendWebSocketMessage, setMessageHandler } = require('./websocket');
 const winston = require('winston');
+const COMPANY_ID = process.env.ENV === 'DEV' ? process.env.DEV_COMPANY_ID  : process.env.UAT_COMPANY_ID 
+
 
 async function handleBalance(data) {
 	return new Promise((resolve, reject) => {
@@ -18,7 +20,7 @@ async function getCompanyBalance(show_empty) {
 			order_by: 'amount',
 			sort: 'DESC',
 			date: '',
-			company: `${process.env.COMPANY_ID}`,
+			company: `${COMPANY_ID}`,
 		},
 	});
 	return new Promise((resolve, reject) => {

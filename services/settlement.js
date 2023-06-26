@@ -2,6 +2,7 @@ require('dotenv').config();
 const winston = require('winston');
 const { sendWebSocketMessage, setMessageHandler } = require('./websocket');
 const BigNumber = require('bignumber.js');
+const COMPANY_ID = process.env.ENV === 'DEV' ? process.env.DEV_COMPANY_ID  : process.env.UAT_COMPANY_ID 
 
 function getFormattedDate() {
 	const today = new Date();
@@ -56,7 +57,7 @@ async function getUnsettledTrades() {
 			type: 'get_unsettled_trades',
 			id: 'dc01e864-f3ed-4d4a-8110-0193f750a917',
 			data: {
-				company_id: `${process.env.COMPANY_ID}`,
+				company_id: `${COMPANY_ID}`,
 			},
 		});
 		sendWebSocketMessage(dataToSend);
@@ -70,7 +71,7 @@ async function createSettlement(collectedTrades) {
 			type: 'create_settlement',
 			data: {
 				trades_collection: collectedTrades,
-				company_id: `${process.env.COMPANY_ID}`,
+				company_id: `${COMPANY_ID}`,
 			},
 		});
 		sendWebSocketMessage(dataToSend);
@@ -173,7 +174,7 @@ async function getCompanyTransactionAccount() {
 				sort: 'DESC',
 				currencies: [],
 				owner: `COMPANY`,
-				companies: [`${process.env.COMPANY_ID}`],
+				companies: [`${COMPANY_ID}`],
 			},
 		});
 		sendWebSocketMessage(dataToSend);
@@ -215,7 +216,7 @@ async function addSettlementTransaction(legId, legAmount, fromAccount, toAccount
 						to_account: `${toAccount}`,
 					},
 				],
-				company_id: `${process.env.COMPANY_ID}`,
+				company_id: `${COMPANY_ID}`,
 			},
 		});
 		sendWebSocketMessage(dataToSend);
@@ -260,7 +261,7 @@ async function validateTransaction(transactionId) {
 				transaction: `${transactionId}`,
 				status: 'VALIDATED',
 				external_reference: 'Automated Validation',
-				company_id: `${process.env.COMPANY_ID}`,
+				company_id: `${COMPANY_ID}`,
 			},
 		});
 		sendWebSocketMessage(dataToSend);
@@ -324,7 +325,7 @@ module.exports = {
 // 				"transaction": "9a7cf3d8-0aa9-11ee-bf28-162b04727a91",
 // 				"status": "VALIDATED",
 // 				"external_reference": "Automated Validation",
-// 				"company_id": `${process.env.COMPANY_ID}`
+// 				"company_id": `${process.env.UAT_COMPANY_ID}`
 // 			}
 // 		});
 // 		sendWebSocketMessage(dataToSend);

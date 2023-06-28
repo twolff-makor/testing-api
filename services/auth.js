@@ -18,14 +18,12 @@ async function getRestToken() {
 			.then((response) => {
 				let REST_TOKEN = JSON.stringify(response.data.token);
 				REST_TOKEN = REST_TOKEN.slice(1, -1);
-				console.log(REST_TOKEN);
 				resolve(REST_TOKEN);
 			})
 			.catch((error) => {
 				// logger.error(error);
 				reject(error);
 			});
-			console.log(JSON.stringify(request));
 	});
 }
 

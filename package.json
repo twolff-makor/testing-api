@@ -13,6 +13,6 @@
     "ws": "^8.13.0"
   },
   "scripts": {
-    "start": "node index.js -p 3000"
+    "start": "node index.js"
   }
 }

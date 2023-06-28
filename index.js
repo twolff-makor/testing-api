@@ -4,7 +4,7 @@ const { getWsToken, getRestToken } = require('./services/auth');
 const { openWebSocket } = require('./services/websocket');
 const { settlementFlow } = require('./controllers/settlementFlow');
 const { tradeFlow, pause } = require('./controllers/tradeFlow');
-const {  createCompany } = require('./services/company');
+const {createCompany } = require('./services/company');
 
 const WS_URL = process.env.ENV === 'DEV' ? process.env.DEV_WS_URL : process.env.UAT_WS_URL;
 

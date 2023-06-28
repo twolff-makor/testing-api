@@ -145,10 +145,8 @@ async function generateCompanyDetails(REST_TOKEN) {
 			expiresAt,
 			apisAndModules,
 			products,
-			fiat,
 			exposures,
-			// productsFee,
-			feeRate,
+			feeRate
 		]);
 	});
 }
@@ -158,7 +156,6 @@ async function createCompany(REST_TOKEN) {
 	const apisAndModules = companyDetails[5];
 	const response = await axios
 		.post(`${REST_URL}/company`, {
-			///NOTICE THIS HAS TO BE DEV NOT UAT !!!!!!
 			companyDetails: {
 				country: `${companyDetails[0]}`,
 				legalName: `${companyDetails[1]}`,
@@ -168,32 +165,31 @@ async function createCompany(REST_TOKEN) {
 				expires_at: `${companyDetails[4]}`,
 			},
 			APIs: {
-				WS: `${apisAndModules[0]}`,
-				REST: `${apisAndModules[1]}`,
-				FIX: `${apisAndModules[2]}`,
+				WS: apisAndModules[0],
+				REST: apisAndModules[1],
+				FIX: apisAndModules[2],
 			},
 			modules: {
-				trading: `${apisAndModules[3]}`,
-				settlement: `${apisAndModules[4]}`,
-				'market data': `${apisAndModules[5]}`,
-				analytics: `${apisAndModules[6]}`,
+				trading: apisAndModules[3],
+				settlement: apisAndModules[4],
+				market_data: apisAndModules[5],
+				analytics: apisAndModules[6],
 			},
-			products: `${companyDetails[6]}`,
-			exposures: `${companyDetails[7]}`,
-			productsFee: [], //  add fees later
-			fee_rate: `${companyDetails[8]}`,
+			products: companyDetails[6],
+			exposures: companyDetails[7],
+			productsFee: [],
+			fee_rate: companyDetails[8],
 			status: 'ACTIVE',
-			pnl: [], // getUsers --> run over get users response
+			pnl: [],
 		}, {
 			headers: {
 				Authorization: `Bearer ${REST_TOKEN}`,
 			},
 		})
 		.catch((error) => {
-			console.log(error);
+			throw error;
 		});
-
-	const res = JSON.stringify(response.data);
+	const res = response.data;
 	return res;
 }
 

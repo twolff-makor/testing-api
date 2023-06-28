@@ -151,8 +151,7 @@ async function generateCompanyDetails(REST_TOKEN) {
 	});
 }
 
-async function createCompany(REST_TOKEN) {
-	const companyDetails = await generateCompanyDetails(REST_TOKEN);
+async function createCompany(REST_TOKEN, companyDetails) {
 	const apisAndModules = companyDetails[5];
 	const response = await axios
 		.post(`${REST_URL}/company`, {
@@ -193,6 +192,26 @@ async function createCompany(REST_TOKEN) {
 	return res;
 }
 
+
+async function getCompany(REST_TOKEN, company_id) {
+	const companyDetails = await generateCompanyDetails(REST_TOKEN);
+	const apisAndModules = companyDetails[5];
+	const response = await axios
+		.get(`${REST_URL}/company/${company_id}`, 
+			{
+			headers: {
+				Authorization: `Bearer ${REST_TOKEN}`,
+			},
+		})
+		.catch((error) => {
+			throw error;
+		});
+	const res = response.data;
+	return res;
+}
+
 module.exports = {
 	createCompany,
+	getCompany,
+	generateCompanyDetails
 };

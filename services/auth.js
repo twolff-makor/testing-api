@@ -21,7 +21,6 @@ async function getRestToken() {
 				resolve(REST_TOKEN);
 			})
 			.catch((error) => {
-				// logger.error(error);
 				reject(error);
 			});
 	});

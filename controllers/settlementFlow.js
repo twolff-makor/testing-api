@@ -1,5 +1,4 @@
 require('dotenv').config();
-const winston = require('winston');
 const BigNumber = require('bignumber.js');
 const {
 	createSettlement,

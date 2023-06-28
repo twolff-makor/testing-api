@@ -4,7 +4,7 @@ const { getWsToken, getRestToken } = require('./services/auth');
 const { openWebSocket } = require('./services/websocket');
 const { settlementFlow } = require('./controllers/settlementFlow');
 const { tradeFlow, pause } = require('./controllers/tradeFlow');
-const {createCompany } = require('./services/company');
+const { companyFlow } = require('./controllers/companyFlow');
 
 const WS_URL = process.env.ENV === 'DEV' ? process.env.DEV_WS_URL : process.env.UAT_WS_URL;
 
@@ -21,6 +21,6 @@ let numOfOtc = 10;
 	// 		let settlement = await settlementFlow(numOfOtc)
 	// 	})();
 	// }
-	let stuff = await createCompany(REST_TOKEN);
+	let stuff = await companyFlow(REST_TOKEN, `085ddec5-1581-11ee-aa59-9c7bef42b27b`);
 	console.log(JSON.stringify(stuff));
 })();

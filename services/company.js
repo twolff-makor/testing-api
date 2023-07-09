@@ -128,7 +128,7 @@ async function generateCompanyDetails(REST_TOKEN) {
 		const randomCountry = countries[Math.floor(Math.random() * countries.length)];
 		const legalName = generateRandomString();
 		const nickName = legalName;
-		const subDomain = legalName.replace(/ /g, '_');
+		const subDomain = (legalName.replace(/ /g, '-')).toLowerCase();
 		const expiresAt = generateExpirationDate();
 		const apisAndModules = generateTrueFalse();
 		const productsAndFiat = await getProductsAndFiat(REST_TOKEN);

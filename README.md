@@ -40,7 +40,7 @@ Issues that need to be worked on :
 3. export to csv + mail/teams result (link to trade/settlement?)
 
 Tests that need to be added :
-1. company flow - edit company
+1. company flow - edit company, add more log info
 2. edit trade
 3. cancel trade
 4. cancel settlement 

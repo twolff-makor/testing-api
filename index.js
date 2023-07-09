@@ -13,12 +13,13 @@ let numOfOtc = 10;
 
 (async () => {
 	const REST_TOKEN = await getRestToken();
-	let WS_TOKEN = await getWsToken();
-	let connection = await openWebSocket(`${WS_URL}/?token=${WS_TOKEN}`);
-
+	
 	if (process.env.ENV === 'DEV') {
 		let company = await companyFlow(REST_TOKEN);
+
 	} else if (process.env.ENV === 'UAT') {
+		let WS_TOKEN = await getWsToken();
+		let connection = await openWebSocket(`${WS_URL}/?token=${WS_TOKEN}`);
 		if (connection) {
 			(async () => {
 				let trade = await tradeFlow(numOfOtc);

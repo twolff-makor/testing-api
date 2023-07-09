@@ -39,7 +39,7 @@ async function getWsToken() {
 				resolve(WS_TOKEN);
 			})
 			.catch((error) => {
-				logger.error(error);
+				// logger.error(error);
 				reject(error);
 			});
 	});

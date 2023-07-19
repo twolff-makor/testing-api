@@ -66,7 +66,8 @@ function generateRandomProducts(products) {
 	return randomProducts;
 }
 
-async function getCurrencies(fiat, REST_TOKEN) {
+async function 
+getCurrencies(fiat, REST_TOKEN) {
 	return new Promise((resolve, reject) => {
 		fiat = [...new Set(fiat.filter((value) => value !== null))];
 		axios
@@ -81,7 +82,7 @@ async function getCurrencies(fiat, REST_TOKEN) {
 					.filter((item) => fiat.includes(item.code))
 					.map((item) => ({
 						id: item.id,
-						amount: Math.floor(Math.random() * (1000000 - 100000 + 1)) + 100000,
+						amount: Math.floor(Math.random() * (1000000)),
 					}));
 				resolve(exposures);
 			})

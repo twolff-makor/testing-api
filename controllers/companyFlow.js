@@ -2,7 +2,6 @@ require('dotenv').config();
 const BigNumber = require('bignumber.js');
 const { createCompany, getCompany, generateCompanyDetails } = require('../services/company');
 const logger = require('../services/winston');
-const { pause } = require('./tradeFlow');
 
 function compareCompanyDetails(companyDetails, newCompanyDetails) {
 	const duplicate = [];
@@ -75,14 +74,15 @@ function compareCompanyDetails(companyDetails, newCompanyDetails) {
 async function companyFlow(REST_TOKEN) {
 	logger.info(`STARTING COMPANY FLOW. CREATING NEW COMPANY`);
 	const generatedCompanyDetails = await generateCompanyDetails(REST_TOKEN);
+	logger.info(`CREATING NEW COMPANY WITH RANDOM GENERATED DATA:`)
 	const newCompanyId = (await createCompany(REST_TOKEN, generatedCompanyDetails)).id;
 	const newCompanyDetails = await getCompany(REST_TOKEN, newCompanyId);
 	let correctDetails = compareCompanyDetails(generatedCompanyDetails, newCompanyDetails);
-
+	logger.info(`COMPARING GENERATED COMPANY DATA WITH NEW COMPANY SETTINGS`);
 	if (correctDetails === true) {
-		logger.info('NEW COMPANY DETAILS ARE CORRECT');
+		logger.info('NEW COMPANY SETTINGS ARE CORRECT');
 	} else {
-		logger.info('NEW COMPANY DETAILS ARE NOT CORRECT');
+		logger.info('NEW COMPANY SETTINGS ARE NOT CORRECT');
 	}
 
 	logger.info(`FINISHED COMPANY FLOW`);

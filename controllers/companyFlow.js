@@ -70,12 +70,14 @@ function compareCompanyDetails(companyDetails, newCompanyDetails) {
 	return true;
 }
 
+
+
 async function companyFlow(REST_TOKEN) {
 	logger.info(`STARTING COMPANY FLOW. CREATING NEW COMPANY`);
-	const companyDetails = await generateCompanyDetails(REST_TOKEN);
-	const newCompanyId = (await createCompany(REST_TOKEN, companyDetails)).id;
+	const generatedCompanyDetails = await generateCompanyDetails(REST_TOKEN);
+	const newCompanyId = (await createCompany(REST_TOKEN, generatedCompanyDetails)).id;
 	const newCompanyDetails = await getCompany(REST_TOKEN, newCompanyId);
-	let correctDetails = compareCompanyDetails(companyDetails, newCompanyDetails);
+	let correctDetails = compareCompanyDetails(generatedCompanyDetails, newCompanyDetails);
 
 	if (correctDetails === true) {
 		logger.info('NEW COMPANY DETAILS ARE CORRECT');

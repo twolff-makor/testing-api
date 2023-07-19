@@ -27,7 +27,7 @@ These flows work together, read the below to understand how they work:
 -> create settlement 
 -> get unsettled trades, confirm there are no trades to settle
 -> get transaction accounts and settlement legs
--> run over settlement legs and validate them one by one (*if sum amount > 0 enigma is receiving & status == processing, if sum amount < 0 enigma is sending & status == pending. )
+-> run over settlement legs and validate them one by one (*if sum amount > 0 enigma is receiving & status === processing, if sum amount < 0 enigma is sending & status === pending. )
 -> get current (after settlement) balance 
 -> get settlement sum
 -> compare balance to balance before settlement, there should be a delta that is equal to sum of settlement

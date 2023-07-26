@@ -1,8 +1,19 @@
 require('dotenv').config();
 const BigNumber = require('bignumber.js');
-const { createCompany, getCompany, generateCompanyDetails } = require('../services/company');
+const {
+	createOrEditCompany,
+	getCompany,
+	generateCompanyDetails,
+	regenerateCompanyDetails,
+} = require('../services/company');
 const logger = require('../services/winston');
 
+const arrayDuplicateValue = (arr1, compareKey1, arr2, compareKey2) => {
+	return arr1.every(item1 =>
+	  arr2.some(item2 => item1[compareKey1] === item2[compareKey2])
+	);
+  };
+  
 function compareCompanyDetails(companyDetails, newCompanyDetails) {
 	const duplicate = [];
 	`${companyDetails[0]}` === newCompanyDetails.companyDetails.country.country_code
@@ -39,9 +50,10 @@ function compareCompanyDetails(companyDetails, newCompanyDetails) {
 	companyDetails[5][6] === newCompanyDetails.modules.analytics
 		? duplicate.push(true)
 		: duplicate.push(false);
-	companyDetails[6].id === newCompanyDetails.products.id
-		? duplicate.push(true)
-		: duplicate.push(false);
+	// companyDetails[6].name === newCompanyDetails.products.name 
+	// 	? duplicate.push(true)
+	// 	: duplicate.push(false);
+	// duplicate.push(arrayDuplicateValue(companyDetails[6], `name`, newCompanyDetails.products, `name`)) need to check this 
 	companyDetails[6].default_qty === newCompanyDetails.products.default_qty
 		? duplicate.push(true)
 		: duplicate.push(false);
@@ -69,13 +81,11 @@ function compareCompanyDetails(companyDetails, newCompanyDetails) {
 	return true;
 }
 
-
-
 async function companyFlow(REST_TOKEN) {
 	logger.info(`STARTING COMPANY FLOW. CREATING NEW COMPANY`);
 	const generatedCompanyDetails = await generateCompanyDetails(REST_TOKEN);
-	logger.info(`CREATING NEW COMPANY WITH RANDOM GENERATED DATA:`)
-	const newCompanyId = (await createCompany(REST_TOKEN, generatedCompanyDetails)).id;
+	logger.info(`CREATING NEW COMPANY WITH RANDOM GENERATED DATA.`);
+	const newCompanyId = (await createOrEditCompany(REST_TOKEN, generatedCompanyDetails, `post`, '')).id;
 	const newCompanyDetails = await getCompany(REST_TOKEN, newCompanyId);
 	let correctDetails = compareCompanyDetails(generatedCompanyDetails, newCompanyDetails);
 	logger.info(`COMPARING GENERATED COMPANY DATA WITH NEW COMPANY SETTINGS`);
@@ -84,7 +94,18 @@ async function companyFlow(REST_TOKEN) {
 	} else {
 		logger.info('NEW COMPANY SETTINGS ARE NOT CORRECT');
 	}
-
+	logger.info(`GENERATING NEW DATA FOR EDIT COMPANY`);
+	const regeneratedCompanyDetails = await regenerateCompanyDetails(REST_TOKEN, newCompanyDetails, newCompanyId);
+	logger.info(`EDITING COMPANY`);
+	await createOrEditCompany(REST_TOKEN, regeneratedCompanyDetails, `put`, newCompanyId);
+	const editedCompanyDetails = await getCompany(REST_TOKEN, newCompanyId);
+	correctDetails = compareCompanyDetails(regeneratedCompanyDetails, editedCompanyDetails);
+	logger.info(`COMPARING REGENERATED COMPANY DATA WITH EDITED COMPANY SETTINGS`);
+	if (correctDetails === true) {
+		logger.info('EDITED COMPANY SETTINGS ARE CORRECT');
+	} else {
+		logger.info('EDITED COMPANY SETTINGS ARE NOT CORRECT');
+	}
 	logger.info(`FINISHED COMPANY FLOW`);
 }
 

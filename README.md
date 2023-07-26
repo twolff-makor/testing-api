@@ -44,3 +44,4 @@ Tests that need to be added :
 2. edit trade
 3. cancel trade
 4. cancel settlement 
+5. add more dynamics to trade options - get everything from server 

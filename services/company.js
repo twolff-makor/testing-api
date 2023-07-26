@@ -1,7 +1,7 @@
 require('dotenv').config();
 const axios = require('axios');
 const winston = require('winston');
-const REST_URL = process.env.ENV === 'DEV' ? process.env.DEV_REST_URL  : process.env.UAT_REST_URL 
+const REST_URL = process.env.ENV === 'DEV' ? process.env.DEV_REST_URL : process.env.UAT_REST_URL;
 
 async function getUtils(REST_TOKEN) {
 	return new Promise((resolve, reject) => {
@@ -30,11 +30,12 @@ async function getProductsAndFiat(REST_TOKEN) {
 				},
 			})
 			.then((response) => {
-				const res = response.data.products.map(function (obj) {
+				const res = response.data.products.map((obj) =>{
 					return {
 						fiat: obj.fiat,
 						product: {
 							id: obj.id,
+							name: obj.name,
 							default_qty: obj.config.default_qty,
 							authorized_qty_max: obj.config.authorized_qty.max,
 							authorized_qty_min: obj.config.authorized_qty.min,
@@ -66,8 +67,7 @@ function generateRandomProducts(products) {
 	return randomProducts;
 }
 
-async function 
-getCurrencies(fiat, REST_TOKEN) {
+async function getCurrencies(fiat, REST_TOKEN) {
 	return new Promise((resolve, reject) => {
 		fiat = [...new Set(fiat.filter((value) => value !== null))];
 		axios
@@ -82,12 +82,12 @@ getCurrencies(fiat, REST_TOKEN) {
 					.filter((item) => fiat.includes(item.code))
 					.map((item) => ({
 						id: item.id,
-						amount: Math.floor(Math.random() * (1000000)),
+						amount: Math.floor(Math.random() * 1000000),
 					}));
 				resolve(exposures);
 			})
 			.catch((error) => {
-				logger.log(`getCurrencies through this error :  ${error}`);
+				logger.log(`getCurrencies threw this error :  ${error}`);
 			});
 	});
 }
@@ -123,13 +123,70 @@ function generateRandomFees() {
 	return randomNumber;
 }
 
+async function regenerateCompanyDetails(REST_TOKEN, companyData, companyId) {
+	return new Promise(async (resolve, reject) => {
+		const randomCountry = companyData.companyDetails.country.country_code;
+		const legalName = companyData.companyDetails.legalName;
+		const nickName = legalName;
+		const subDomain = companyData.companyDetails.subDomain;
+		const expiresAt = companyData.companyDetails.expires_at;
+		const apisAndModules = generateTrueFalse();
+		const productsAndFiat = await getCompanyProducts(REST_TOKEN);
+		const products = productsAndFiat.map((item) => item.product);
+		const fiat = productsAndFiat.map((item) => item.fiat);
+		const exposures = await getCurrencies(fiat, REST_TOKEN);
+		// const productsFee = false
+		const feeRate = generateRandomFees();
+		resolve([
+			randomCountry,
+			legalName,
+			nickName,
+			subDomain,
+			expiresAt,
+			apisAndModules,
+			products,
+			exposures,
+			feeRate,
+		]);
+	});
+}
+
+async function getCompanyProducts(REST_TOKEN, companyId) {
+	return new Promise((resolve, reject) => {
+		axios
+			.get(`${REST_URL}/product?company=${companyId}`, {
+				headers: {
+					Authorization: `Bearer ${REST_TOKEN}`,
+				},
+			})
+			.then((response) => {
+				const products = response.data.products.map((obj) =>{
+					return {
+						fiat: obj.fiat,
+						product: {
+							id: obj.id,
+							name: obj.name,
+							default_qty: obj.config.default_qty,
+							authorized_qty_max: obj.config.authorized_qty.max,
+							authorized_qty_min: obj.config.authorized_qty.min,
+						},
+					};
+				});
+				resolve(products);
+			})
+			.catch((error) => {
+				throw error;
+			});
+	});
+}
+
 async function generateCompanyDetails(REST_TOKEN) {
 	return new Promise(async (resolve, reject) => {
 		const countries = await getUtils(REST_TOKEN);
 		const randomCountry = countries[Math.floor(Math.random() * countries.length)];
 		const legalName = generateRandomString();
 		const nickName = legalName;
-		const subDomain = (legalName.replace(/ /g, '-')).toLowerCase();
+		const subDomain = legalName.replace(/ /g, '-').toLowerCase();
 		const expiresAt = generateExpirationDate();
 		const apisAndModules = generateTrueFalse();
 		const productsAndFiat = await getProductsAndFiat(REST_TOKEN);
@@ -147,22 +204,24 @@ async function generateCompanyDetails(REST_TOKEN) {
 			apisAndModules,
 			products,
 			exposures,
-			feeRate
+			feeRate,
 		]);
 	});
 }
 
-async function createCompany(REST_TOKEN, companyDetails) {
+async function createOrEditCompany(REST_TOKEN, companyDetails, method, companyId) {
 	const apisAndModules = companyDetails[5];
-	const response = await axios
-		.post(`${REST_URL}/company`, {
+	const subDomain = method === "post" ? { subDomain: companyDetails[3],} : {};
+	const response = await axios[method](
+		`${REST_URL}/company/${companyId}`,
+		{
 			companyDetails: {
 				country: `${companyDetails[0]}`,
 				legalName: `${companyDetails[1]}`,
 				nickName: `${companyDetails[2]}`,
-				subDomain: `${companyDetails[3]}`,
 				external_url: null,
 				expires_at: `${companyDetails[4]}`,
+				...subDomain
 			},
 			APIs: {
 				WS: apisAndModules[0],
@@ -181,25 +240,21 @@ async function createCompany(REST_TOKEN, companyDetails) {
 			fee_rate: companyDetails[8],
 			status: 'ACTIVE',
 			pnl: [],
-		}, {
+		},
+		{
 			headers: {
 				Authorization: `Bearer ${REST_TOKEN}`,
 			},
-		})
-		.catch((error) => {
-			throw error;
-		});
-	const res = response.data;
-	return res;
+		}
+	).catch((error) => {
+		throw error;
+	});
+	return response.data;
 }
 
-
 async function getCompany(REST_TOKEN, company_id) {
-	const companyDetails = await generateCompanyDetails(REST_TOKEN);
-	const apisAndModules = companyDetails[5];
 	const response = await axios
-		.get(`${REST_URL}/company/${company_id}`, 
-			{
+		.get(`${REST_URL}/company/${company_id}`, {
 			headers: {
 				Authorization: `Bearer ${REST_TOKEN}`,
 			},
@@ -207,12 +262,13 @@ async function getCompany(REST_TOKEN, company_id) {
 		.catch((error) => {
 			throw error;
 		});
-	const res = response.data;
-	return res;
+	return response.data;
 }
 
 module.exports = {
-	createCompany,
+	createOrEditCompany,
 	getCompany,
-	generateCompanyDetails
+	generateCompanyDetails,
+	regenerateCompanyDetails,
+	getCompanyProducts,
 };

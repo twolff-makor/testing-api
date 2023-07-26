@@ -28,7 +28,7 @@ async function getCompanyBalance(show_empty) {
 		setMessageHandler(async (data) => {
 			const balance = await handleBalance(data);
 			resolve(balance);
-		}, `balance`);
+		}, 'balance');
 	});
 }
 

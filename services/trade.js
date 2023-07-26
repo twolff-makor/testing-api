@@ -3,7 +3,7 @@ const { sendWebSocketMessage, setMessageHandler } = require('./websocket');
 // const { createdTrade } = require('../controllers/tradeFlows')
 const winston = require('winston');
 
-const counterparties = ['04ea951e-3457-11ed-9f51-9c7bef452f5f'];
+const counterparties = process.env.ENV === 'UAT' ? ['04ea951e-3457-11ed-9f51-9c7bef452f5f'] : ['f6750ec3-2adc-11ee-90d4-9c7bef42b27b'];
 const products = [
 	{
 		name: 'BTC-USD',
@@ -103,7 +103,8 @@ const products = [
 	},
 ];
 const sides = ['BUY', 'SELL'];
-const companies = ['62b08b48-aaa7-11ed-a122-0a45617894ef'];
+const companies = process.env.ENV === 'UAT' ? ['62b08b48-aaa7-11ed-a122-0a45617894ef'] : ['0a59c79c-1417-11ee-aa59-9c7bef42b27b'];
+const user = process.env.ENV === 'UAT' ? ['3331a59b-a2c4-11ed-a122-0a45617894ef'] : ['f60a970e-2ae0-11ee-90d4-9c7bef42b27b'];
 
 function handleTradeMessage(message) {
 	if ((message.code = 200 && message.content)) {
@@ -185,7 +186,7 @@ async function createOtcTrade(
 			providers_trades: [
 				{
 					counterparty: `${counterparty}`,
-					user: '3331a59b-a2c4-11ed-a122-0a45617894ef',
+					user: `${user}`,
 					product: `${product}`,
 					side: `${side}`,
 					status: 'VALIDATED',
@@ -210,9 +211,9 @@ async function createOtcTrade(
 			otc_type: 'PAIRED',
 		},
 	});
-		sendWebSocketMessage(dataToSend);
-		response = setMessageHandler(handleTradeMessage, `report_trade_otc`);
-		resolve(response);
+	sendWebSocketMessage(dataToSend);
+	response = setMessageHandler(handleTradeMessage, `report_trade_otc`);
+	resolve(response);
 	});
 }
 

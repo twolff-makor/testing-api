@@ -1,10 +1,11 @@
 require('dotenv').config();
 const winston = require('winston');
-const { getWsToken, getRestToken } = require('./services/auth');
+const { getToken} = require('./services/auth');
 const { openWebSocket } = require('./services/websocket');
 const { settlementFlow } = require('./controllers/settlementFlow');
 const { tradeFlow, pause } = require('./controllers/tradeFlow');
 const { companyFlow } = require('./controllers/companyFlow');
+const {getCompanyProducts} =  require('./services/company');
 
 const WS_URL = process.env.ENV === 'DEV' ? process.env.DEV_WS_URL : process.env.UAT_WS_URL;
 
@@ -12,19 +13,26 @@ const WS_URL = process.env.ENV === 'DEV' ? process.env.DEV_WS_URL : process.env.
 let numOfOtc = 10;
 
 (async () => {
-	const REST_TOKEN = await getRestToken();
-	
+	const TOKEN = await getToken();
+	const connection = await openWebSocket(`${WS_URL}/?token=${TOKEN}`);
+	// setTimeout(() => {
+		
 	if (process.env.ENV === 'DEV') {
-		let company = await companyFlow(REST_TOKEN);
-
+		// let company = await companyFlow(TOKEN);
+		if (connection) {
+			(async () => {
+				let trade = await tradeFlow(numOfOtc);
+			})();
+		}
+		// console.log(await getCompanyProducts(tOKEN, '6e138423-4f92-11ed-bac9-062cd6ab3e51'));
 	} else if (process.env.ENV === 'UAT') {
-		let WS_TOKEN = await getWsToken();
-		let connection = await openWebSocket(`${WS_URL}/?token=${WS_TOKEN}`);
 		if (connection) {
 			(async () => {
 				let trade = await tradeFlow(numOfOtc);
 				let settlement = await settlementFlow(numOfOtc);
 			})();
 		}
-	}
+	}	
+// }, 1000);
+
 })();

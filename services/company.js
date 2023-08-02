@@ -1,6 +1,6 @@
 require('dotenv').config();
 const axios = require('axios');
-const winston = require('winston');
+const logger = require('../services/winston');
 const REST_URL = process.env.ENV === 'DEV' ? process.env.DEV_REST_URL : process.env.UAT_REST_URL;
 
 async function getUtils(REST_TOKEN) {
@@ -16,7 +16,7 @@ async function getUtils(REST_TOKEN) {
 				resolve(countries);
 			})
 			.catch((error) => {
-				reject(error);
+				logger.error(`getUtils threw this error :  ${error}`);
 			});
 	});
 }
@@ -46,7 +46,7 @@ async function getProductsAndFiat(REST_TOKEN) {
 				resolve(products);
 			})
 			.catch((error) => {
-				reject(error);
+				logger.error(`getProductsAndFiat threw this error :  ${error}`);
 			});
 	});
 }
@@ -67,11 +67,12 @@ function generateRandomProducts(products) {
 	return randomProducts;
 }
 
-async function getCurrencies(fiat, REST_TOKEN) {
+async function generateExposures(fiat, REST_TOKEN, companyId) {
+	const params = companyId ? `&company=${companyId}` : `&active=true`;
 	return new Promise((resolve, reject) => {
 		fiat = [...new Set(fiat.filter((value) => value !== null))];
 		axios
-			.get(`${REST_URL}/currency?type=FIAT&active=true`, {
+			.get(`${REST_URL}/currency?type=FIAT${params}`, {
 				headers: {
 					Authorization: `Bearer ${REST_TOKEN}`,
 				},
@@ -82,12 +83,12 @@ async function getCurrencies(fiat, REST_TOKEN) {
 					.filter((item) => fiat.includes(item.code))
 					.map((item) => ({
 						id: item.id,
-						amount: Math.floor(Math.random() * 1000000),
+						amount: Math.floor(Math.random() * 1000000) + 1000,
 					}));
 				resolve(exposures);
 			})
 			.catch((error) => {
-				logger.log(`getCurrencies threw this error :  ${error}`);
+				logger.error(`generateExposures threw this error :  ${error}`);
 			});
 	});
 }
@@ -131,10 +132,10 @@ async function regenerateCompanyDetails(REST_TOKEN, companyData, companyId) {
 		const subDomain = companyData.companyDetails.subDomain;
 		const expiresAt = companyData.companyDetails.expires_at;
 		const apisAndModules = generateTrueFalse();
-		const productsAndFiat = await getCompanyProducts(REST_TOKEN);
+		const productsAndFiat = await getCompanyProducts(REST_TOKEN, companyId);
 		const products = productsAndFiat.map((item) => item.product);
 		const fiat = productsAndFiat.map((item) => item.fiat);
-		const exposures = await getCurrencies(fiat, REST_TOKEN);
+		const exposures = await generateExposures(fiat, REST_TOKEN, companyId);
 		// const productsFee = false
 		const feeRate = generateRandomFees();
 		resolve([
@@ -175,7 +176,7 @@ async function getCompanyProducts(REST_TOKEN, companyId) {
 				resolve(products);
 			})
 			.catch((error) => {
-				throw error;
+				logger.error(`getCompanyProducts threw this error :  ${error}`);
 			});
 	});
 }
@@ -192,7 +193,7 @@ async function generateCompanyDetails(REST_TOKEN) {
 		const productsAndFiat = await getProductsAndFiat(REST_TOKEN);
 		const products = productsAndFiat.map((item) => item.product);
 		const fiat = productsAndFiat.map((item) => item.fiat);
-		const exposures = await getCurrencies(fiat, REST_TOKEN);
+		const exposures = await generateExposures(fiat, REST_TOKEN);
 		// const productsFee = false
 		const feeRate = generateRandomFees();
 		resolve([
@@ -247,7 +248,7 @@ async function createOrEditCompany(REST_TOKEN, companyDetails, method, companyId
 			},
 		}
 	).catch((error) => {
-		throw error;
+		logger.error(`createOrEditCompany threw this error :  ${error}`);
 	});
 	return response.data;
 }
@@ -260,7 +261,7 @@ async function getCompany(REST_TOKEN, company_id) {
 			},
 		})
 		.catch((error) => {
-			throw error;
+			logger.error(`getCompany threw this error :  ${error}`);
 		});
 	return response.data;
 }

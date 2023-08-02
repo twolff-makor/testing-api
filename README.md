@@ -1,13 +1,13 @@
 # testing-api
 Running tests :
 1. Make sure you have the .env up and running.
-2. To run test in DEV environment input ENV=DEV into .env file --- trade+sett flow have not been adapted for DEV yet !
+2. To run test in DEV environment input ENV=DEV into .env file --- sett flow has not been adapted for DEV yet !
 3. To run test in UAT environment input ENV=UAT into .env file --- When running tests on UAT DO NOT run company tests !! -- it will create a new domain automatically 
 
-So far we have 2 running and fully functional test flows:
+So far we have 3 running and fully functional test flows:
 1. Trade flow
 2. Settlement flow 
-3. Create new company
+3. New Company flow
 
 These flows work together, read the below to understand how they work: 
 1. Trade flow :
@@ -38,10 +38,11 @@ Issues that need to be worked on :
 1. Decimal issues 
 2. dev/uat environments - add uat functionalities to dev 
 3. export to csv + mail/teams result (link to trade/settlement?)
+4. add more dynamics to trade options - get everything from server 
+
 
 Tests that need to be added :
-1. company flow - edit company, add more log info
+1. company flow - add more log info --> wip
 2. edit trade
 3. cancel trade
 4. cancel settlement 
-5. add more dynamics to trade options - get everything from server 

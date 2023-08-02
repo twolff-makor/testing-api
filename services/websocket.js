@@ -1,16 +1,18 @@
 const WebSocket = require('ws');
-
+const logger = require('../services/winston');
 let ws = null;
 
-function openWebSocket(url) {
+async function openWebSocket(url) {
 	return new Promise((resolve, reject) => {
 		if (!ws) {
 			ws = new WebSocket(url);
 			ws.on('open', () => {
+				setTimeout(() => {
 				if (ws.readyState === 1) {
 					console.log('WebSocket connection established.');
 					resolve(ws);
 				}
+				}, 1000);
 			});
 
 			ws.on('close', () => {

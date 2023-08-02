@@ -1,5 +1,5 @@
 require('dotenv').config();
-const winston = require('winston');
+const logger = require('../services/winston');
 const { sendWebSocketMessage, setMessageHandler } = require('./websocket');
 const BigNumber = require('bignumber.js');
 const COMPANY_ID = process.env.ENV === 'DEV' ? process.env.DEV_COMPANY_ID  : process.env.UAT_COMPANY_ID 
@@ -83,12 +83,12 @@ async function createSettlement(collectedTrades) {
 function handleSettlementMessage(message) {
 	if ((message.code = 200 && message.content)) {
 		const settlementId = message.content.settlement_id;
-		return `NEW SETTLEMENT CREATED, SETTLEMENT ID ${settlementId}`;
+		return settlementId;
 	} else {
 	}
 }
 
-// }===============================================================================================================================
+// }===============================================================================================not in use
 async function getFirstSettlementId() {
 	return new Promise(async (resolve, reject) => {
 		const dataToSend = JSON.stringify({
@@ -108,16 +108,13 @@ async function getFirstSettlementId() {
 		});
 		sendWebSocketMessage(dataToSend);
 		const response = await setMessageHandler((data) => {
-			const id = data.content.data[0].id;
-			return id;
-		}, `settlement_blotter`);
+			return data.content.data[0].id;}, `settlement_blotter`);
 		resolve(response);
 	});
 }
 // }===============================================================================================================================
 
-async function getSettlementLegs() {
-	const settlementId = await getFirstSettlementId();
+async function getSettlementLegs(settlementId) {
 	return new Promise(async (resolve, reject) => {
 		const dataToSend = JSON.stringify({
 			type: 'get_settlement',
@@ -165,7 +162,6 @@ async function getEnigmaTransactionAccount() {
 
 async function getCompanyTransactionAccount() {
 	return new Promise(async (resolve, reject) => {
-		let response;
 		const dataToSend = JSON.stringify({
 			type: 'get_transaction_accounts',
 			id: `fromAccount`,
@@ -178,8 +174,7 @@ async function getCompanyTransactionAccount() {
 			},
 		});
 		sendWebSocketMessage(dataToSend);
-		response = await setMessageHandler(handleTransactionAccount, `get_transaction_accounts`);
-		resolve(response);
+		resolve(setMessageHandler(handleTransactionAccount, `get_transaction_accounts`));
 	});
 }
 
@@ -203,8 +198,7 @@ async function handleTransactionAccount(data) {
 async function addSettlementTransaction(legId, legAmount, fromAccount, toAccount) {
 	let date = getFormattedDate();
 	return new Promise(async (resolve, reject) => {
-		let response;
-		const dataToSend = JSON.stringify({
+			const dataToSend = JSON.stringify({
 			type: 'add_transactions',
 			data: {
 				settlement_leg: `${legId}`,
@@ -220,20 +214,13 @@ async function addSettlementTransaction(legId, legAmount, fromAccount, toAccount
 			},
 		});
 		sendWebSocketMessage(dataToSend);
-		response = await setMessageHandler((data) => {
-			const res = data.message;
-			return res;
-		}, `add_transactions`);
-		resolve(response);
+		resolve(await setMessageHandler(data => data.message , `add_transactions`));
+		// resolve(response);
 	});
 }
 
-let transactionStatus;
-
-async function getTransactionId(status) {
-	const settlementId = await getFirstSettlementId();
-	transactionStatus = status;
-	return new Promise(async (resolve, reject) => {
+async function getTransactionId(transactionStatus, settlementId) {
+	return new Promise(async (resolve) => {
 		const dataToSend = JSON.stringify({
 			type: 'get_settlement',
 			data: {
@@ -241,15 +228,11 @@ async function getTransactionId(status) {
 			},
 		});
 		sendWebSocketMessage(dataToSend);
-		const response = await setMessageHandler(handleTransactionId, `get_settlement`);
+		const response = await setMessageHandler(
+		(data)=>{data = data.content.legs.filter((item) => item.status === transactionStatus);
+		return data[0].transaction[0].id}, `get_settlement`);
 		resolve(response);
 	});
-}
-
-function handleTransactionId(data) {
-	data = data.content.legs.filter((item) => item.status == transactionStatus);
-	const transactionId = data[0].transaction[0].id;
-	return transactionId;
 }
 
 async function validateTransaction(transactionId) {
@@ -335,3 +318,5 @@ module.exports = {
 // 		resolve (response)
 // 	});
 // }
+
+

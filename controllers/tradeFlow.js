@@ -6,9 +6,9 @@ const logger = require('../services/winston');
 
 let baseAmountSum = new BigNumber(0);
 let quoteAmountSum = new BigNumber(0);
-
+const company = process.env.ENV === `UAT` ? `TehillaINC` : `Tehilla Automatic Testing` 
 async function pause() {
-	await new Promise((resolve) => setTimeout(resolve, 700));
+	await new Promise((resolve) => setTimeout(resolve, 1000));
 }
 
 async function tradeFlow(numOfOtc) {
@@ -20,7 +20,7 @@ async function tradeFlow(numOfOtc) {
 
 		logger.info(`CREATING OTC TRADE NUM ${i + 1}. TRADE DATA :
                       SIDE : ${otcParams.side} 
-                      COMPANY : TehillaINC
+                      COMPANY : ${company}
                       PRODUCT : ${otcParams.product} 
                       QTY : ${otcParams.qty}
                       PROVIDER PRICE : ${otcParams.providerPrice}
@@ -40,11 +40,10 @@ async function tradeFlow(numOfOtc) {
 		logger.info(tradeMessage);
 
 		// let time = await pause();
-
+		
 		const balanceAfterTrade = await getCompanyBalance(true);
-
 		BigNumber.set({ DECIMAL_PLACES: 0 });
-
+		
 		let side = otcParams.side;
 		let companyPrice = new BigNumber(otcParams.companyPrice);
 		let baseAfterTrade = new BigNumber(balanceAfterTrade[base].amount);
@@ -83,7 +82,7 @@ async function tradeFlow(numOfOtc) {
 		} else if (side == 'SELL') {
 			baseAmount = baseAmount.multipliedBy(-1);
 			quoteAmount = quoteAmount.multipliedBy(-1);
-			baseAmountSum = baseAmountSum.plus(baseAmount.toNumber());
+   			baseAmountSum = baseAmountSum.plus(baseAmount.toNumber());
 			quoteAmountSum = quoteAmountSum.plus(quoteAmount.toNumber());
 			if (baseDelta.isEqualTo(baseAmount) && quoteDelta.isEqualTo(quoteAmount)) {
 				logger.info(`BALANCE IS CORRECT`);

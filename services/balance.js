@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { sendWebSocketMessage, setMessageHandler } = require('./websocket');
-const winston = require('winston');
-const COMPANY_ID = process.env.ENV === 'DEV' ? process.env.DEV_COMPANY_ID  : process.env.UAT_COMPANY_ID 
+const logger = require('../services/winston');
+const COMPANY_ID = process.env.ENV === 'DEV' ? process.env.DEV_COMPANY_ID  : process.env.UAT_COMPANY_ID; 
 
 
 async function handleBalance(data) {

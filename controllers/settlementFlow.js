@@ -80,8 +80,8 @@ async function settlementFlow(numOfOtc) {
 	}
 
 	const tradesToSettle = await handleUnsettledTrades(unsettledTrades);
-	let settMessage = await createSettlement(tradesToSettle);
-	logger.info(settMessage)
+	const settlementId = await createSettlement(tradesToSettle);
+	logger.info(`NEW SETTLEMENT CREATED, SETTLEMENT ID ${settlementId}`)
 	
 	const unsettledTradesAfterSettlement = await getUnsettledTrades();
 	const tradesToSettleAfterSettlement = await handleUnsettledTrades(unsettledTradesAfterSettlement);
@@ -94,32 +94,32 @@ async function settlementFlow(numOfOtc) {
 
 	let companyAccounts = await getCompanyTransactionAccount();
 	let enigmaAccounts = await getEnigmaTransactionAccount();
-	const settlementLegs = await getSettlementLegs();
+	const settlementLegs = await getSettlementLegs(settlementId);
 
 	for (leg of settlementLegs) {
 		let currency = leg.code;
 		let fromAccount;
 		let toAccount;
 		let transactionStatus;
-
+console.log(enigmaAccounts);
+console.log(currency);
 		if (leg.amount > 0) {
-			fromAccount = companyAccounts[currency][0];
-			toAccount = enigmaAccounts[currency][0];
-			transactionStatus = 'PROCESSING';
+			try {
+				fromAccount = companyAccounts[currency][0];
+				toAccount = enigmaAccounts[currency][0];
+				transactionStatus = 'PROCESSING';
+			} catch {logger.error(`No company account available for ${currency}`)}
 		} else if (leg.amount < 0) {
-			fromAccount = enigmaAccounts[currency][0];
-			toAccount = companyAccounts[currency][0];
-			leg.amount = new BigNumber(leg.amount).absoluteValue();
-			transactionStatus = 'PENDING';
+			try {
+				fromAccount = enigmaAccounts[currency][0];
+				toAccount = companyAccounts[currency][0];
+				leg.amount = new BigNumber(leg.amount).absoluteValue();
+				transactionStatus = 'PENDING';
+			} catch {logger.error(`No enigma account available for ${currency}`)}
 		}
 
-		if (fromAccount && toAccount) {
-			await addSettlementTransaction(leg.id, leg.amount, fromAccount, toAccount);
-		} else {
-			logger.error('No existing wallet');
-		}
-
-		let transactionId = await getTransactionId(transactionStatus);
+		await addSettlementTransaction(leg.id, leg.amount, fromAccount, toAccount);
+		let transactionId = await getTransactionId(transactionStatus, settlementId);
 		let validated = await validateTransaction(transactionId);
 	}
 

@@ -1,6 +1,6 @@
 require('dotenv').config();
 const axios = require('axios');
-const winston = require('winston');
+const logger = require('../services/winston');
 const REST_URL = process.env.ENV === 'DEV' ? process.env.DEV_REST_URL  : process.env.UAT_REST_URL;
 const USERNAME = process.env.ENV === 'DEV' ? process.env.DEV_USERNAME : process.env.UAT_USERNAME;
 const PASSWORD = process.env.ENV === 'DEV' ? process.env.DEV_PASSWORD : process.env.UAT_PASSWORD;

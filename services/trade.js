@@ -1,9 +1,12 @@
 require('dotenv').config();
 const { sendWebSocketMessage, setMessageHandler } = require('./websocket');
 // const { createdTrade } = require('../controllers/tradeFlows')
-const winston = require('winston');
+const logger = require('../services/winston');
 
 const counterparties = process.env.ENV === 'UAT' ? ['04ea951e-3457-11ed-9f51-9c7bef452f5f'] : ['f6750ec3-2adc-11ee-90d4-9c7bef42b27b'];
+const user = process.env.ENV === 'UAT' ? ['3331a59b-a2c4-11ed-a122-0a45617894ef'] : ['9beb19db-46e8-11ed-b0b7-9c7bef452f5f'];
+const COMPANY_ID = process.env.ENV === 'DEV' ? process.env.DEV_COMPANY_ID  : process.env.UAT_COMPANY_ID;
+const sides = ['BUY', 'SELL'];
 const products = [
 	{
 		name: 'BTC-USD',
@@ -86,14 +89,6 @@ const products = [
 		decimals: 2,
 	},
 	{
-		name: 'TRX-USD',
-		lowPrice: 26000,
-		highPrice: 29000,
-		lowQty: 2,
-		highQty: 4000,
-		decimals: 2,
-	},
-	{
 		name: 'XLM-USD',
 		lowPrice: 26000,
 		highPrice: 29000,
@@ -102,9 +97,6 @@ const products = [
 		decimals: 2,
 	},
 ];
-const sides = ['BUY', 'SELL'];
-const companies = process.env.ENV === 'UAT' ? ['62b08b48-aaa7-11ed-a122-0a45617894ef'] : ['0a59c79c-1417-11ee-aa59-9c7bef42b27b'];
-const user = process.env.ENV === 'UAT' ? ['3331a59b-a2c4-11ed-a122-0a45617894ef'] : ['f60a970e-2ae0-11ee-90d4-9c7bef42b27b'];
 
 function handleTradeMessage(message) {
 	if ((message.code = 200 && message.content)) {
@@ -134,7 +126,7 @@ function getIsoDate() {
 function generateOtcParams() {
 	let generateSide = getRandomItem(sides);
 	let generateCounterparty = getRandomItem(counterparties);
-	let generateCompany = getRandomItem(companies);
+	let generateCompany = COMPANY_ID;
 	let productsIndex = products[Math.floor(Math.random() * products.length)];
 	let generateQty = getRandomNumber(
 		productsIndex.lowQty,
@@ -176,7 +168,6 @@ async function createOtcTrade(
 	date,
 	company,
 	companyPrice,
-	createdAllTrades
 ) {
 	return new Promise((resolve, reject) => {
 	const dataToSend = JSON.stringify({
@@ -198,7 +189,7 @@ async function createOtcTrade(
 				},
 			],
 			trade_company: {
-				counterparty: `${company}`,
+				counterparty: COMPANY_ID,
 				product: `${product}`,
 				side: `${side}`,
 				status: 'VALIDATED',
@@ -209,6 +200,7 @@ async function createOtcTrade(
 				executed_at: `${date}`,
 			},
 			otc_type: 'PAIRED',
+			generate_settlement: false,
 		},
 	});
 	sendWebSocketMessage(dataToSend);

@@ -84,7 +84,7 @@ function compareCompanyDetails(companyDetails, newCompanyDetails) {
 async function companyFlow(REST_TOKEN) {
 	logger.info(`STARTING COMPANY FLOW. CREATING NEW COMPANY`);
 	const generatedCompanyDetails = await generateCompanyDetails(REST_TOKEN);
-	logger.info(`CREATING NEW COMPANY WITH RANDOM GENERATED DATA.`);
+	logger.info(`CREATING NEW COMPANY WITH RANDOM GENERATED DATA.`);3333333
 	const newCompanyId = (await createOrEditCompany(REST_TOKEN, generatedCompanyDetails, `post`, '')).id;
 	const newCompanyDetails = await getCompany(REST_TOKEN, newCompanyId);
 	let correctDetails = compareCompanyDetails(generatedCompanyDetails, newCompanyDetails);

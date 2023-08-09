@@ -13,7 +13,7 @@ const {
 	getTransactionId,
 	validateTransaction,
 } = require('../services/settlement');
-const { updateSums, pause } = require('./tradeFlow');
+const { updateSums} = require('./tradeFlow');
 const { getCompanyBalance } = require('../services/balance');
 const logger = require('../services/winston');
 

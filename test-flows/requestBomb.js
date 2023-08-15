@@ -135,7 +135,7 @@ async function requestBomb (numOfUsers) {
            const responseTime = await setMessageHandler(() => {
             const endTime = performance.now();
             return (endTime - startTime);}, `get_transaction_accounts`);
-            logger.info(`The response time after sending ${i * 10} requests is ${(responseTime/1000).toFixed(2)} seconds.`);
+            logger.info(`The response time after sending ${i * 10} requests is ${(responseTime/1000)} seconds.`);
     }
     
 

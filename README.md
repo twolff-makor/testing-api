@@ -1,7 +1,7 @@
 # testing-api
 Running tests :
 1. Make sure you have the .env up and running.
-2. To run test in DEV environment input ENV=DEV into .env file --- sett flow has not been adapted for DEV yet !
+2. To run test in DEV environment input ENV=DEV into .env file 
 3. To run test in UAT environment input ENV=UAT into .env file --- When running tests on UAT DO NOT run company tests !! -- it will create a new domain automatically 
 
 So far we have 3 running and fully functional test flows:
